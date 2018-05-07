@@ -4,11 +4,84 @@
 
 #include "boundingBox.h"
 
-typedef struct element{
-	int hitpoint;
+#define PROJECTILE_DMG 4
+#define PROJECTILE_SPEED 6
+#define PROJECTILE_SIZE 20
+#define HERO_HP 10
+#define HERO_MAXSPEED 5
+#define HERO_ACCEL 2
+#define ENEMY_HP 6
+#define ENEMY_MAXSPEED 4
+#define ENEMY_ACCEL 1
+#define UNIT_SIZE 40
+#define OBSTACLE_HP 15
+#define OBSTACLE_SIZE 40
+
+static int unitID = 0;
+static int projectileID = 0;
+
+typedef enum {
+	PLAYER,
+	ENEMY,
+	BOSS
+} unitType;
+
+typedef enum {
+	BULLET,
+	MISSILE,
+	BOMB
+} fireType;
+
+typedef struct projectile{
+	int id;
+	int damage;
+	float x, y;
+	unitType master;
 	float speed;
-	float acceleration;
 	BoundingBox * boundingBoxes;
-}Element, * ElementList;
+	struct projectile * next;
+} Projectile;
+
+typedef struct unit{
+	int id;
+	int hitpoint;
+	float x, y;
+	float speed;
+	float maxSpeed;
+	float acceleration;
+	fireType fire;
+	BoundingBox * boundingBoxes;
+	unitType type;
+	Projectile * projectiles;
+	struct unit * next;
+} Unit, * UnitList;
+
+typedef struct obstacle{
+	int hitpoint;
+	float x, y;
+	BoundingBox * boundingBoxes;
+	struct obstacle * next;
+} Obstacle, * ObstacleList;
+
+/* Add a projectile for a unit list of projectile */
+void addProjectile(Unit * unit);
+
+/* Remove a projectile from the unit list of projectile */ 
+void removeProjectile(Unit * unit, int id);
+
+/* Create a unit */
+void addUnit(UnitList * list, unitType type, fireType fire, float x, float y);
+
+/* Remove a unit */
+void removeUnit(UnitList * list, int id);
+
+/* Print the position of the unit in parameter */
+void printUnitPosition(Unit unit);
+
+/* Add an obstacle */
+void addObstacle(ObstacleList * list, float x, float y);
+
+/* Print the position of the obstacle in parameter */
+void printObstacles(ObstacleList list);
 
 #endif

@@ -1,8 +1,9 @@
-#include "../include/element.h"
+/* @uthor : Nathanael ROVERE & Michel YIP */
+#include "../include/render.h"
 
 /* Dimension de la fenetre */
-static unsigned int WINDOW_WIDTH = 1400;
-static unsigned int WINDOW_HEIGHT = 900;
+static unsigned int WINDOW_WIDTH = 1600;
+static unsigned int WINDOW_HEIGHT = 760;
 
 /* Nombre de bits par pixel de la fenetre */
 static const unsigned int BIT_PER_PIXEL = 32;
@@ -14,7 +15,7 @@ void resize(){
 	glViewport(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	gluOrtho2D(-700, 700, -450, 450);
+	gluOrtho2D(0, 1600, 760, 0);
 }
 
 void resize_window(){
@@ -32,11 +33,9 @@ void transform(){
 }
 
 int main (int argc, char ** argv){
-	BoundingBox * boxes1 = initBoundingBox(0,0,20,20);
-	BoundingBox * boxes2 = initBoundingBox(0,0,40,40);
 
-	addBoundingBox(&boxes2, 40,40,60,60);
-	addBoundingBox(&boxes2, 30,10,60,30);
+	Level * level = loadLevel("level/testLevel.ppm");
+	printLevel(*level);
 
 	/* Vérification de l'initialisation de SDL, si echec : sort du programme */
 	if (SDL_Init(SDL_INIT_VIDEO) == -1){
@@ -45,7 +44,7 @@ int main (int argc, char ** argv){
 	}
 	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 0);
 	resize_window();
-	SDL_WM_SetCaption("Michel YIP - OpenGL_TP03", NULL);
+	SDL_WM_SetCaption("Nathanael ROVERE & Michel YIP - Flapimac", NULL);
 	transform();
 
 	int loop = 1;
@@ -60,8 +59,8 @@ int main (int argc, char ** argv){
 		/* On nettoie la fenetre */
 		glClear(GL_COLOR_BUFFER_BIT);
 
-		drawBoundingBoxes(boxes1);
-		drawBoundingBoxes(boxes2);
+		//draw Function
+		renderLevel(*level);
 
 		/* Gestion des évènements SDL */
 		SDL_Event e;
@@ -77,29 +76,18 @@ int main (int argc, char ** argv){
                             printf("Quit...\n");
                             loop = 0;
                             break;
-                        case SDLK_UP:
-                        	boxes1->y1 += 10;
-                        	boxes1->y2 += 10;
-                        	printf("%d\n", intersect(boxes1, boxes2));
-                        	break;
-                        case SDLK_DOWN:
-                        	boxes1->y1 -= 10;
-                        	boxes1->y2 -= 10;
-                        	printf("%d\n", intersect(boxes1, boxes2));
-                        	break;
-                        case SDLK_LEFT:
-                        	boxes1->x1 -= 10;
-                        	boxes1->x2 -= 10;
-                        	printf("%d\n", intersect(boxes1, boxes2));
-                        	break;
-                        case SDLK_RIGHT:
-                        	boxes1->x1 += 10;
-                        	boxes1->x2 += 10;
-                        	printf("%d\n", intersect(boxes1, boxes2));
-                        	break;
                         default:
                             break;
                         }
+					break;
+				case SDL_KEYDOWN:
+					switch(e.key.keysym.sym){
+						case SDLK_RIGHT:
+                        	glTranslatef(-10,0,0);
+                        	break;
+                        default:
+                            break;
+						}
 					break;
 				case SDL_VIDEORESIZE:
 					WINDOW_WIDTH = e.resize.w;
