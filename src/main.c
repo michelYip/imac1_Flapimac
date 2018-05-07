@@ -97,6 +97,7 @@ int main (int argc, char ** argv){
 					break;
 			}
 		}
+		scrollLevel(level);
 		Uint32 elapsedTime = SDL_GetTicks() - startTime;
 		if (elapsedTime < FRAMERATE_MILLISECONDS){
 			SDL_Delay(FRAMERATE_MILLISECONDS - elapsedTime);

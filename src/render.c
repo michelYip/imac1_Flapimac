@@ -62,3 +62,7 @@ void renderProjectiles(Unit unit){
 		unit.projectiles = unit.projectiles->next;
 	}
 }
+
+void scrollLevel(Level * level) {
+	glTranslatef(-SCROLLSPEED,0,0);
+}
