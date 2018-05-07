@@ -3,7 +3,7 @@
 
 #include "action.h"
 
-#define SCROLLSPEED 5
+#define SCROLLSPEED 2
 
 /* Render the different object in the level */
 void renderLevel(Level level);
@@ -19,5 +19,8 @@ void renderObstacles(Level level);
 
 /* Render all the existing projectiles in the level */
 void renderProjectiles(Level level);
+
+/* Automatic horizontal scroll */
+void scrollLevel(Level * level);
 
 #endif

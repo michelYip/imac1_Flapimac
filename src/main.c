@@ -65,6 +65,7 @@ int main (int argc, char ** argv){
 
 		/* Gestion des évènements SDL */
 		userInput(level);
+		scrollLevel(level);
 		
 		Uint32 elapsedTime = SDL_GetTicks() - startTime;
 		if (elapsedTime < FRAMERATE_MILLISECONDS){
