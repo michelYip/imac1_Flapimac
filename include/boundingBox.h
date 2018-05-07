@@ -30,4 +30,7 @@ void drawBoundingBoxes(BoundingBoxList boxes);
 /* Check if two bounding boxes are intersecting with each other */
 int intersect(BoundingBoxList a, BoundingBoxList b);
 
+/* Move a boundingBox */
+void moveBoundingBoxes(BoundingBox * boxes, float x, float y);
+
 #endif

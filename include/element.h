@@ -5,14 +5,12 @@
 #include "boundingBox.h"
 
 #define PROJECTILE_DMG 4
-#define PROJECTILE_SPEED 6
+#define PROJECTILE_VELOCITY 6
 #define PROJECTILE_SIZE 20
 #define HERO_HP 10
-#define HERO_MAXSPEED 5
-#define HERO_ACCEL 2
+#define HERO_ACCEL 0.1
 #define ENEMY_HP 6
-#define ENEMY_MAXSPEED 4
-#define ENEMY_ACCEL 1
+#define ENEMY_ACCEL 0.05
 #define UNIT_SIZE 40
 #define OBSTACLE_HP 15
 #define OBSTACLE_SIZE 40
@@ -36,23 +34,21 @@ typedef struct projectile{
 	int id;
 	int damage;
 	float x, y;
+	float velocity;
 	unitType master;
-	float speed;
+	float orientation;
 	BoundingBox * boundingBoxes;
 	struct projectile * next;
-} Projectile;
+} Projectile, * ProjectileList;
 
 typedef struct unit{
 	int id;
 	int hitpoint;
 	float x, y;
-	float speed;
-	float maxSpeed;
-	float acceleration;
+	float x_velocity, y_velocity;
 	fireType fire;
 	BoundingBox * boundingBoxes;
 	unitType type;
-	Projectile * projectiles;
 	struct unit * next;
 } Unit, * UnitList;
 
@@ -64,10 +60,10 @@ typedef struct obstacle{
 } Obstacle, * ObstacleList;
 
 /* Add a projectile for a unit list of projectile */
-void addProjectile(Unit * unit);
+void addProjectile(ProjectileList list, Unit unit);
 
 /* Remove a projectile from the unit list of projectile */ 
-void removeProjectile(Unit * unit, int id);
+void removeProjectile(ProjectileList projectiles, int id);
 
 /* Create a unit */
 void addUnit(UnitList * list, unitType type, fireType fire, float x, float y);

@@ -1,8 +1,9 @@
 /* @uthor : Nathanael ROVERE & Michel YIP */
+
 #include "../include/element.h"
 
 /* Add a projectile for a unit list of projectile */
-void addProjectile(Unit * unit){
+void addProjectile(ProjectileList projectiles, Unit unit){
 	Projectile * newP;
 	if ((newP = malloc(sizeof(Projectile))) == NULL){
 		fprintf(stderr, "error while allocating memory for addProjectile\n");
@@ -10,27 +11,28 @@ void addProjectile(Unit * unit){
 	}
 	newP -> id = projectileID ++;
 	newP -> damage = PROJECTILE_DMG;
-	newP -> x = unit->x;
-	newP -> y = unit->y;
-	newP -> master = unit ->type;
-	newP -> speed  = PROJECTILE_SPEED;
-	newP -> boundingBoxes = initBoundingBox(unit->x - PROJECTILE_SIZE/2,
-										 unit->y - PROJECTILE_SIZE/2, 
-										 unit->x + PROJECTILE_SIZE/2, 
-										 unit->y + PROJECTILE_SIZE/2);
-	if (unit -> projectiles != NULL)
-		newP -> next = unit -> projectiles;	
+	newP -> x = unit.x;
+	newP -> y = unit.y;
+	newP -> velocity = PROJECTILE_VELOCITY;
+	newP -> master = unit.type;
+	newP -> orientation = (unit.type = PLAYER)? 0 : 180;
+	newP -> boundingBoxes = initBoundingBox(unit.x - PROJECTILE_SIZE/2,
+										 unit.y - PROJECTILE_SIZE/2, 
+										 unit.x + PROJECTILE_SIZE/2, 
+										 unit.y + PROJECTILE_SIZE/2);
+	if (projectiles != NULL)
+		newP -> next = projectiles;	
 	else
 		newP -> next = NULL;
-	unit -> projectiles = newP;
+	projectiles = newP;
 }
 
 /* Remove a projectile from the unit list of projectile */
-void removeProjectile(Unit * unit, int id){
-	Projectile * tmp = unit -> projectiles;
+void removeProjectile(ProjectileList projectiles, int id){
+	Projectile * tmp =  projectiles;
 	Projectile * prev;
 	if (tmp != NULL && tmp->id == id){
-		unit -> projectiles = unit -> projectiles -> next;
+		projectiles = projectiles -> next;
 		free(tmp);
 		return;
 	}
@@ -65,19 +67,16 @@ void addUnit(UnitList * list, unitType type, fireType fire, float x, float y){
 	newUnit -> fire = fire;
 	newUnit -> x = x;
 	newUnit -> y = y;
-	newUnit -> projectiles = NULL;
+	newUnit -> x_velocity = 0;
+	newUnit -> y_velocity = 0;
 	newUnit -> boundingBoxes = initBoundingBox(x - UNIT_SIZE/2,
 										 	y - UNIT_SIZE/2, 
 										 	x + UNIT_SIZE/2, 
 										 	y + UNIT_SIZE/2);
 	if (type == PLAYER){
 		newUnit -> hitpoint = HERO_HP;
-		newUnit -> maxSpeed = HERO_MAXSPEED;
-		newUnit -> acceleration = HERO_ACCEL;
 	} else if (type == ENEMY) {
 		newUnit -> hitpoint = ENEMY_HP;
-		newUnit -> maxSpeed = ENEMY_MAXSPEED;
-		newUnit -> acceleration = ENEMY_ACCEL;
 	}
 	if ((*list) != NULL)
 		newUnit -> next = (*list);	
@@ -86,6 +85,7 @@ void addUnit(UnitList * list, unitType type, fireType fire, float x, float y){
 	(*list) = newUnit;
 }
 
+/* TODO */
 /* Remove a unit */
 void removeUnit(UnitList * list, int id){
 

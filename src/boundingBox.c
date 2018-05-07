@@ -1,4 +1,5 @@
 /* @uthor : Nathanael ROVERE & Michel YIP */
+
 #include "../include/boundingBox.h"
 
 /* Initialize a bounding box with the parameter coordinate */
@@ -70,3 +71,14 @@ int intersect(BoundingBoxList a, BoundingBoxList b){
 	return 0;
 }
 
+/* Move a boundingBox */
+void moveBoundingBoxes(BoundingBox * boxes, float x, float y){
+	BoundingBox * tmp = boxes;
+	while (tmp != NULL){
+		tmp->x1 += x;
+		tmp->x2 += x;
+		tmp->y1 += y;
+		tmp->y2 += y;
+		tmp = tmp->next;
+	}
+}

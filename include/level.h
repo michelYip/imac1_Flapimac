@@ -10,6 +10,7 @@ typedef struct level{
 	Unit * player;
 	Unit * enemies;
 	Obstacle * obstacles;
+	Projectile * projectiles;
 }Level;
 
 /* Load a level from a PPM File */

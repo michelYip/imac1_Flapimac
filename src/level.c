@@ -1,4 +1,5 @@
 /* @uthor : Nathanael ROVERE & Michel YIP */
+
 #include "../include/level.h"
 
 /* Load a level from a PPM File */
@@ -13,6 +14,10 @@ Level * loadLevel(const char * levelName){
 		fprintf(stderr, "error while allocating memory for loadLevel\n");
 		exit(EXIT_FAILURE);
 	}
+	level->player = NULL;
+	level->enemies=NULL;
+	level->obstacles=NULL;
+	level->projectiles = NULL;
 	//open PPM file for reading
 	fp = fopen(levelName, "rb");
 	if (!fp){

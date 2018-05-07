@@ -1,4 +1,5 @@
 /* @uthor : Nathanael ROVERE & Michel YIP */
+
 #include "../include/render.h"
 
 /* Dimension de la fenetre */
@@ -63,40 +64,8 @@ int main (int argc, char ** argv){
 		renderLevel(*level);
 
 		/* Gestion des évènements SDL */
-		SDL_Event e;
-		while(SDL_PollEvent(&e)) {
-            if (e.type == SDL_QUIT){
-                loop = 0;
-                break;
-            }
-			switch(e.type){
-				case SDL_KEYUP:
-                    switch(e.key.keysym.sym){
-                        case SDLK_q:
-                            printf("Quit...\n");
-                            loop = 0;
-                            break;
-                        default:
-                            break;
-                        }
-					break;
-				case SDL_KEYDOWN:
-					switch(e.key.keysym.sym){
-						case SDLK_RIGHT:
-                        	glTranslatef(-10,0,0);
-                        	break;
-                        default:
-                            break;
-						}
-					break;
-				case SDL_VIDEORESIZE:
-					WINDOW_WIDTH = e.resize.w;
-					WINDOW_HEIGHT= e.resize.h;
-					resize_window();
-				default:
-					break;
-			}
-		}
+		userInput(level);
+		
 		Uint32 elapsedTime = SDL_GetTicks() - startTime;
 		if (elapsedTime < FRAMERATE_MILLISECONDS){
 			SDL_Delay(FRAMERATE_MILLISECONDS - elapsedTime);
