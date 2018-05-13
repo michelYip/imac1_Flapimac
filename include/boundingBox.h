@@ -2,12 +2,7 @@
 #ifndef __BOUNDING_BOX__
 #define __BOUNDING_BOX__
 
-#include <SDL/SDL.h>
-#include <GL/gl.h>
-#include <GL/glu.h>
-#include <stdlib.h>
-#include <stdio.h>
-#include <math.h>
+#include "macro.h"
 
 typedef struct BoundingBox {
 	float x1, y1;
@@ -31,6 +26,6 @@ void drawBoundingBoxes(BoundingBoxList boxes);
 int intersect(BoundingBoxList a, BoundingBoxList b);
 
 /* Move a boundingBox */
-void moveBoundingBoxes(BoundingBox * boxes, float x, float y);
+void moveBoundingBoxes(BoundingBoxList * boxes, float x, float y);
 
 #endif

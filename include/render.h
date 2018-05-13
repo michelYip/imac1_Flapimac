@@ -1,9 +1,7 @@
 #ifndef __RENDER__
 #define __RENDER__
 
-#include "action.h"
-
-#define SCROLLSPEED 2
+#include "level.h"
 
 /* Render the different object in the level */
 void renderLevel(Level level);

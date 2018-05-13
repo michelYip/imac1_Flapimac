@@ -1,6 +1,7 @@
 /* @uthor : Nathanael ROVERE & Michel YIP */
 
 #include "../include/render.h"
+#include "../include/action.h"
 
 /* Dimension de la fenetre */
 static unsigned int WINDOW_WIDTH = 1600;
@@ -53,6 +54,10 @@ int main (int argc, char ** argv){
     glColor3ub(255,255,255);
 	
 	while(loop){
+		if (level->player == NULL){
+			printf("Game Over !\n");
+			return EXIT_SUCCESS;
+		}
 		Uint32 startTime = SDL_GetTicks();
 
 		/* Echange les deux buffers */
@@ -61,11 +66,12 @@ int main (int argc, char ** argv){
 		glClear(GL_COLOR_BUFFER_BIT);
 
 		//draw Function
+		updateLevel(level);
 		renderLevel(*level);
+		scrollLevel(level);
 
 		/* Gestion des évènements SDL */
 		userInput(level);
-		scrollLevel(level);
 		
 		Uint32 elapsedTime = SDL_GetTicks() - startTime;
 		if (elapsedTime < FRAMERATE_MILLISECONDS){

@@ -24,7 +24,7 @@ void renderPlayer(Level level){
 	while (level.player != NULL){
 	    glColor3ub(0,0,255);
 		glPushMatrix();
-			glTranslatef(level.player->x*UNIT_SIZE, level.player->y*UNIT_SIZE, 0);
+			glTranslatef(level.player->x, level.player->y, 0);
 			glBegin(GL_QUADS);
 				glVertex2f(-UNIT_SIZE/2, UNIT_SIZE/2);
 				glVertex2f(UNIT_SIZE/2, UNIT_SIZE/2);
@@ -32,6 +32,7 @@ void renderPlayer(Level level){
 				glVertex2f(-UNIT_SIZE/2, -UNIT_SIZE/2);
 			glEnd();
 		glPopMatrix();
+		drawBoundingBoxes(level.player->boundingBoxes);
 		level.player = level.player->next;
 	}
 }
@@ -40,15 +41,16 @@ void renderPlayer(Level level){
 void renderEnemies(Level level){
 	while (level.enemies != NULL){
 	    glColor3ub(255,0,0);
-		glPushMatrix();
-			glTranslatef(level.enemies->x*UNIT_SIZE, level.enemies->y*UNIT_SIZE, 0);
+		/*glPushMatrix();
+			glTranslatef(level.enemies->x, level.enemies->y, 0);
 			glBegin(GL_QUADS);
 				glVertex2f(-UNIT_SIZE/2, UNIT_SIZE/2);
 				glVertex2f(UNIT_SIZE/2, UNIT_SIZE/2);
 				glVertex2f(UNIT_SIZE/2, -UNIT_SIZE/2);
 				glVertex2f(-UNIT_SIZE/2, -UNIT_SIZE/2);
 			glEnd();
-		glPopMatrix();
+		glPopMatrix();*/
+		drawBoundingBoxes(level.enemies->boundingBoxes);
 		level.enemies = level.enemies->next;
 	}
 }
@@ -57,15 +59,16 @@ void renderEnemies(Level level){
 void renderObstacles(Level level){
 	while (level.obstacles != NULL){
 	    glColor3ub(255,255,255);
-		glPushMatrix();
-			glTranslatef(level.obstacles->x*OBSTACLE_SIZE, level.obstacles->y*OBSTACLE_SIZE, 0);
+		/*glPushMatrix();
+			glTranslatef(level.obstacles->x, level.obstacles->y, 0);
 			glBegin(GL_QUADS);
 				glVertex2f(-OBSTACLE_SIZE/2, OBSTACLE_SIZE/2);
 				glVertex2f(OBSTACLE_SIZE/2, OBSTACLE_SIZE/2);
 				glVertex2f(OBSTACLE_SIZE/2, -OBSTACLE_SIZE/2);
 				glVertex2f(-OBSTACLE_SIZE/2, -OBSTACLE_SIZE/2);
 			glEnd();
-			glPopMatrix();
+		glPopMatrix();*/
+		drawBoundingBoxes(level.obstacles->boundingBoxes);
 		level.obstacles = level.obstacles->next;
 	}
 }
@@ -74,12 +77,16 @@ void renderObstacles(Level level){
 void renderProjectiles(Level level){
 	while (level.projectiles != NULL){
 		glColor3ub(255,255,0);
-		glBegin(GL_QUADS);
-			glVertex2f(-PROJECTILE_SIZE/2, PROJECTILE_SIZE/2);
-			glVertex2f(PROJECTILE_SIZE/2, PROJECTILE_SIZE/2);
-			glVertex2f(PROJECTILE_SIZE/2, -PROJECTILE_SIZE/2);
-			glVertex2f(-PROJECTILE_SIZE/2, -PROJECTILE_SIZE/2);
-		glEnd();
+		/*glPushMatrix();
+			glTranslatef(level.projectiles->x, level.projectiles->y, 0);
+			glBegin(GL_QUADS);
+				glVertex2f(-PROJECTILE_SIZE/2, PROJECTILE_SIZE/2);
+				glVertex2f(PROJECTILE_SIZE/2, PROJECTILE_SIZE/2);
+				glVertex2f(PROJECTILE_SIZE/2, -PROJECTILE_SIZE/2);
+				glVertex2f(-PROJECTILE_SIZE/2, -PROJECTILE_SIZE/2);
+			glEnd();
+		glPopMatrix();*/
+		drawBoundingBoxes(level.projectiles->boundingBoxes);
 		level.projectiles = level.projectiles->next;
 	}
 }

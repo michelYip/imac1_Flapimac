@@ -72,8 +72,8 @@ int intersect(BoundingBoxList a, BoundingBoxList b){
 }
 
 /* Move a boundingBox */
-void moveBoundingBoxes(BoundingBox * boxes, float x, float y){
-	BoundingBox * tmp = boxes;
+void moveBoundingBoxes(BoundingBoxList * boxes, float x, float y){
+	BoundingBox * tmp = *boxes;
 	while (tmp != NULL){
 		tmp->x1 += x;
 		tmp->x2 += x;

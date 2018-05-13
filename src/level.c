@@ -61,13 +61,13 @@ Level * loadLevel(const char * levelName){
    			fscanf(fp, "%d", &g);
    			fscanf(fp, "%d", &b);
    			if (r == 255 && g == 255 && b == 255){
-   				addObstacle(&(level->obstacles), (float)x, (float)y);
+   				addObstacle(&(level->obstacles), (float)x*UNIT_SIZE, (float)y*UNIT_SIZE);
    			}
    			else if (r == 255 && g == 0 && b == 0){
-   				addUnit(&(level->enemies), ENEMY, BULLET, (float)x, (float)y);
+   				addUnit(&(level->enemies), ENEMY, BULLET, (float)x*UNIT_SIZE, (float)y*UNIT_SIZE);
    			}
    			else if (r == 0 && g == 0 && b == 255){
-   				addUnit(&(level->player), PLAYER, BULLET, (float)x, (float)y);
+   				addUnit(&(level->player), PLAYER, BULLET, (float)x*UNIT_SIZE, (float)y*UNIT_SIZE);
    			}
     	}
     }
@@ -92,3 +92,133 @@ void printLevel(Level level){
 	printObstacles(level.obstacles);
 
 }
+
+/* Update the level current status */
+void updateLevel(Level * level){
+	if (level->projectiles != NULL){
+		updateProjectilesPosition(&(level->projectiles));
+	}
+	checkCollisions(level);
+
+}
+
+/* Check the collision for every object in the level */
+void checkCollisions(Level * level){
+	checkPlayerCollision(&level->player, level);
+	checkProjectilesCollision(&level->projectiles, level);
+}
+
+/* Check the collision for the player with every object in the level */
+void checkPlayerCollision(UnitList * unit, Level * level){
+	Unit * enemies;
+	Obstacle * obstacles;
+	Unit * player = *unit;
+	while (player != NULL){
+		enemies = level->enemies;
+		obstacles = level->obstacles;
+		while (enemies != NULL){
+			if (player == NULL){
+				player = *unit;
+				continue;
+			}
+			if (intersect(player->boundingBoxes, enemies->boundingBoxes)){
+				if(damageUnit(&player, COLLISION_DAMAGE)){
+					removeUnit(unit, player->id);
+				} else {
+					knockbackUnit(player, enemies->x, enemies->y, COLLISION_KNOCKBACK);
+				}
+			}
+			enemies = enemies->next;
+		}
+		while (obstacles != NULL){
+			if (player == NULL){
+				player = *unit;
+				continue;
+			}
+			if (intersect(player->boundingBoxes, obstacles->boundingBoxes)){
+				if(damageUnit(&player, COLLISION_DAMAGE)){
+					removeUnit(unit, player->id);
+				} else {
+					knockbackUnit(player, obstacles->x, obstacles->y, COLLISION_KNOCKBACK);
+				}
+			}
+			obstacles = obstacles->next;
+		}
+		if (player == NULL){
+			player = *unit;
+			continue;
+		}
+		player = player->next;
+	}
+}
+
+/* Check the collision for a projectile with every object in the level */
+void checkProjectilesCollision(ProjectileList * projectiles, Level * level){
+	Unit * player;
+	Unit * enemies;
+	Obstacle * obstacles;
+	Projectile * tmp = *projectiles;
+	while (tmp != NULL){
+		player = level->player;
+		enemies = level->enemies;
+		obstacles = level->obstacles;
+		while (player != NULL){
+			if (tmp == NULL){
+				tmp = *projectiles;
+				continue;
+			}
+			if (tmp->master == ENEMY && intersect(tmp->boundingBoxes, player->boundingBoxes)){
+				if(damageUnit(&player, tmp->damage)){
+					printf("player is destroyed !\n");
+				}
+				removeProjectile(projectiles, tmp->id);
+			}
+			player = player->next;
+		}
+		while (enemies != NULL){
+			if (tmp == NULL){
+				tmp = *projectiles;
+				continue;
+			}
+			if (tmp->master == PLAYER && intersect(tmp->boundingBoxes, enemies->boundingBoxes)){
+				if(damageUnit(&enemies, tmp->damage)){
+					printf("enemy is destroyed !\n");
+				}
+				removeProjectile(projectiles, tmp->id);
+			}
+			enemies = enemies->next;
+		}
+		while (obstacles != NULL){
+			if (tmp == NULL){
+				tmp = *projectiles;
+				continue;
+			}
+			if (intersect(tmp->boundingBoxes, obstacles->boundingBoxes)){
+				removeProjectile(projectiles, tmp->id);
+			}
+			obstacles = obstacles->next;
+		}
+		if (tmp == NULL){
+			tmp = *projectiles;
+			continue;
+		}
+		tmp = tmp->next;
+	}		
+}
+
+/* Reduce a unit's hitpoint by the damage dealt in parameter */
+int damageUnit(UnitList * unit, int damageDealt){
+	(*unit)->hitpoint -= damageDealt;
+	if ((*unit)->hitpoint <= 0){
+		return 1;
+	}
+	return 0;
+}
+
+/* Push a unit away from the collision */
+void knockbackUnit(Unit * unit, float x, float y, float knockbackDistance){
+	moveBoundingBoxes(&(unit->boundingBoxes), -(x - unit->x) * knockbackDistance, -(y - unit->y) * knockbackDistance); 
+	unit->x += -(x - unit->x) * knockbackDistance;
+	unit->y += -(y - unit->y) * knockbackDistance;
+}
+
