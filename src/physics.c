@@ -2,11 +2,12 @@
 
 #include "../include/physics.h"
 
-static Uint32 time = 0;
+static Uint32 damagedTime = 0;
 static int damaged = 0;
 
 /* Update the level current status */
 void updateElementsPosition(Level * level){
+	freeOutOfScreenElements(level);
 	if (!isImmune(level->player)){
 		damaged = 0;
 	}
@@ -14,7 +15,7 @@ void updateElementsPosition(Level * level){
 		updateProjectilesPosition(&(level->projectiles));
 	}
 	if (level->enemies != NULL){
-		updateEnemies(&(level->enemies));
+		updateEnemies(level);
 	}
 	checkCollisions(level);
 }
@@ -49,8 +50,6 @@ void checkPlayerCollision(UnitList * unit, Level * level){
 						player = *unit;
 						if (player == NULL)
 							return;
-					} else {
-						knockbackUnit(player, enemies->y);
 					}
 				}
 				removeUnit(&(level->enemies), enemies->id);
@@ -69,8 +68,6 @@ void checkPlayerCollision(UnitList * unit, Level * level){
 						player = *unit;
 						if (player == NULL)
 							return;
-					} else {
-						knockbackUnit(player, obstacles->y);
 					}
 				}
 				removeObstacle(&(level->obstacles), obstacles->id);
@@ -100,7 +97,7 @@ void checkProjectilesCollision(ProjectileList * projectiles, Level * level){
 				tmp = *projectiles;
 				continue;
 			}*/
-			if (tmp->master == ENEMY && intersect(tmp->boundingBoxes, player->boundingBoxes)){
+			if (tmp->master != PLAYER && intersect(tmp->boundingBoxes, player->boundingBoxes)){
 				if (!isImmune(player)){
 					if(damageUnit(&player, tmp->damage)){
 						printf("player is destroyed !\n");
@@ -164,7 +161,7 @@ int damageUnit(UnitList * unit, int damageDealt){
 	damaged = 1;
 	(*unit)->hitpoint -= damageDealt;
 	if ((*unit)->type == PLAYER){
-		time = SDL_GetTicks();
+		damagedTime = SDL_GetTicks();
 	}
 	if ((*unit)->hitpoint <= 0){
 		return 1;
@@ -181,20 +178,14 @@ int damageObstacle(ObstacleList * obstacle, int damageDealt){
 	return 0;
 }
 
-/* Push a unit away from the collision */
-void knockbackUnit(Unit * unit, float y){
-	moveBoundingBoxes(&(unit->boundingBoxes), 0, -(y - unit->y) * KNOCKBACK); 
-	unit->y += -(y - unit->y) * KNOCKBACK;
-}
-
 /* Check if the player is immune to damage */
 int isImmune(Unit * player){
-	if (SDL_GetTicks() < time + IMMUNE_TIME && damaged){
-		if (SDL_GetTicks() < time + BLINK_DURATION){
+	if (SDL_GetTicks() < damagedTime + IMMUNE_TIME && damaged){
+		if (SDL_GetTicks() < damagedTime + BLINK_DURATION){
 			isHurt(player);
-		} else if (SDL_GetTicks() > time + 2*BLINK_DURATION && SDL_GetTicks() < time + 3*BLINK_DURATION){
+		} else if (SDL_GetTicks() > damagedTime + 2*BLINK_DURATION && SDL_GetTicks() < damagedTime + 3*BLINK_DURATION){
 			isHurt(player);
-		} else if (SDL_GetTicks() > time + 4*BLINK_DURATION && SDL_GetTicks() < time + 5*BLINK_DURATION){
+		} else if (SDL_GetTicks() > damagedTime + 4*BLINK_DURATION && SDL_GetTicks() < damagedTime + 5*BLINK_DURATION){
 			isHurt(player);
 		}
 		return 1;

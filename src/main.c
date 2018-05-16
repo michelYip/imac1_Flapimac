@@ -30,7 +30,8 @@ void transform(){
 }
 
 int main (int argc, char ** argv){
-
+	srand(time(NULL));
+	
 	Level * level = loadLevel("level/testLevel.ppm");
 	printLevel(*level);
 

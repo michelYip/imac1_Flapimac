@@ -10,6 +10,7 @@ typedef struct unit{
 	int hitpoint;
 	float x, y;
 	float x_velocity, y_velocity;
+	int shotTime;
 	fireType fire;
 	behavior behavior;
 	BoundingBox * boundingBoxes;

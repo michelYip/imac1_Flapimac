@@ -5,7 +5,7 @@
 static int projectileID = 0;
 
 /* Add a projectile for a unit list of projectile */
-void addProjectile(ProjectileList * projectiles, Unit unit){
+void addProjectile(ProjectileList * projectiles, Unit unit, int orientation){
 	Projectile * newP;
 	if ((newP = malloc(sizeof(Projectile))) == NULL){
 		fprintf(stderr, "error while allocating memory for addProjectile\n");
@@ -15,9 +15,9 @@ void addProjectile(ProjectileList * projectiles, Unit unit){
 	newP -> damage = PROJECTILE_DMG;
 	newP -> x = unit.x;
 	newP -> y = unit.y;
-	newP -> velocity = PROJECTILE_VELOCITY;
+	newP -> velocity = (unit.type == PLAYER)? PROJECTILE_VELOCITY + SCROLLSPEED : PROJECTILE_VELOCITY;
 	newP -> master = unit.type;
-	newP -> orientation = (unit.type == PLAYER)? 0 : 180;
+	newP -> orientation = (unit.type == PLAYER)? 0 + orientation : 180 + orientation;
 	newP -> orientation *= M_PI / 180;
 	newP -> boundingBoxes = initBoundingBox(unit.x - PROJECTILE_SIZE/2,
 										 unit.y - PROJECTILE_SIZE/2, 

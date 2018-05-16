@@ -8,7 +8,7 @@
 void moveUnit(Unit * unit);
 
 /* Shoot a bullet */
-void shoot(Level * level, Unit unit);
+void shoot(ProjectileList * projectiles, Unit * unit);
 
 /* Control the user input */
 void userInput(Level * level);

@@ -15,8 +15,26 @@ void moveUnit(Unit * unit){
 }
 
 /* Shoot a bullet */
-void shoot(Level * level, Unit unit){
-	addProjectile(&(level->projectiles), unit);
+void shoot(ProjectileList * projectiles, Unit * unit){
+	int reload = 0;
+	if (unit->type == PLAYER) reload = HERO_RELOAD;
+	else if (unit->type == ENEMY) reload = ENEMY_RELOAD;
+	else if (unit->type == BOSS) reload = BOSS_RELOAD;
+	if (SDL_GetTicks() >= unit->shotTime + reload){
+		//Add projectile Type 
+		if (unit->fire == BULLET){
+			addProjectile(projectiles, *unit, 0);
+		}
+		else if (unit->fire == VOLLEY){
+			addProjectile(projectiles, *unit, 10);
+			addProjectile(projectiles, *unit, 5);
+			addProjectile(projectiles, *unit, 0);
+			addProjectile(projectiles, *unit, -5);
+			addProjectile(projectiles, *unit, -10);
+		}
+		unit->shotTime = SDL_GetTicks();
+		printProjectiles(*projectiles);
+	}
 }
 
 /* Control the user input */
@@ -36,7 +54,7 @@ void userInput(Level * level){
 		                level->player->y_velocity = HERO_VELOCITY;
 		                break;
 		            case SDLK_SPACE:
-		            	shoot(level, (*level->player));
+		            	shoot(&(level->projectiles), level->player);
 		            	break;
 		            default:
 		                break;

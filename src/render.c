@@ -91,10 +91,6 @@ void renderProjectiles(Level level){
 	}
 }
 
-void scrollLevel(Level * level) {
-	glTranslatef(-SCROLLSPEED,0,0);
-}
-
 void isHurt(Unit * player){
 	glColor3ub(255,0,0);
 	glPushMatrix();

@@ -18,7 +18,7 @@ typedef struct projectile{
 } Projectile, * ProjectileList;
 
 /* Add a projectile for a unit list of projectile */
-void addProjectile(ProjectileList * list, Unit unit);
+void addProjectile(ProjectileList * list, Unit unit, int orientation);
 
 /* Print the list of projectiles in the level */
 void printProjectiles(ProjectileList p);

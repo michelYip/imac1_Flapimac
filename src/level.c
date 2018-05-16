@@ -69,6 +69,9 @@ Level * loadLevel(const char * levelName){
    			else if (r == 0 && g == 0 && b == 255){
    				addUnit(&(level->player), PLAYER, BULLET, (float)x*UNIT_SIZE, (float)y*UNIT_SIZE);
    			}
+   			else if (r == 125 && g == 125 && b == 125){
+   				addUnit(&(level->enemies), BOSS, VOLLEY, (float)x*UNIT_SIZE, (float)y*UNIT_SIZE);
+   			}
     	}
     }
 
@@ -90,4 +93,74 @@ void printLevel(Level level){
 	}
 	printf("OBSTACLES : \n");
 	printObstacles(level.obstacles);
+}
+
+/* Automatic horizontal scroll */
+void scrollLevel(Level * level) {
+	if (!checkBossPosition(level)){
+		glTranslatef(-SCROLLSPEED,0,0);
+	}
+}
+
+/* Free from memory elements that are not in the screen */
+void freeOutOfScreenElements(Level * level){
+	Unit * enemy = level->enemies;
+	Projectile * projectile = level->projectiles;
+	Obstacle * obstacle = level->obstacles;
+	while (enemy != NULL){
+		if (enemy->x < level->player->x - UNIT_SIZE * 3){
+			removeUnit(&(level->enemies), enemy->id);
+			enemy = level->enemies;
+		}
+		if (enemy == NULL){
+			break;
+		}
+		enemy = enemy->next;
+	}
+	while (projectile != NULL){
+		if (projectile->x < level->player->x - UNIT_SIZE * 3 || projectile->x > level->player->x + WINDOW_WIDTH - UNIT_SIZE * 3){
+			removeProjectile(&(level->projectiles), projectile->id);
+			projectile = level->projectiles;
+		}
+		if (projectile == NULL){
+			break;
+		}
+		projectile = projectile->next;
+	}
+	while (obstacle != NULL){
+		if (obstacle->x < level->player->x - OBSTACLE_SIZE * 3){
+			removeObstacle(&(level->obstacles), obstacle->id);
+			obstacle = level->obstacles;
+		}
+		if (obstacle == NULL){
+			break;
+		}
+		obstacle = obstacle->next;
+	}
+}
+
+/* Check the boss position */
+int checkBossPosition(Level * level){
+	Unit * tmp = level->player;
+	Unit * boss = level->enemies;
+	while (boss != NULL && boss->type != BOSS) {
+		boss = boss->next;
+	}
+	if (boss == NULL) {
+		while (tmp != NULL){
+			tmp->x_velocity = SCROLLSPEED;
+			tmp = tmp->next;
+		}
+		return 0;
+	}
+	else {
+		if (boss->x < level->player->x + BOSS_SIZE * 4){
+			while (tmp != NULL){
+				tmp->x_velocity = 0;
+				tmp = tmp->next;
+			}
+			return 1;
+		}
+		return 0;
+	}
 }

@@ -14,20 +14,28 @@ void addUnit(UnitList * list, unitType type, fireType fire, float x, float y){
 	newUnit -> id = unitID++;
 	newUnit -> type = type;
 	newUnit -> fire = fire;
+	newUnit -> shotTime = 0;
 	newUnit -> x = x;
 	newUnit -> y = y;
-	newUnit -> x_velocity = SCROLLSPEED;
+	newUnit -> x_velocity = (type == PLAYER)? SCROLLSPEED : 0;
 	newUnit -> y_velocity = 0;
-	newUnit -> boundingBoxes = initBoundingBox(x - UNIT_SIZE/2,
+	newUnit -> boundingBoxes = (type != BOSS) ? initBoundingBox(x - UNIT_SIZE/2,
 										 	y - UNIT_SIZE/2, 
 										 	x + UNIT_SIZE/2, 
-										 	y + UNIT_SIZE/2);
+										 	y + UNIT_SIZE/2) : 
+												initBoundingBox(x - BOSS_SIZE/2,
+										 	y - BOSS_SIZE/2, 
+										 	x + BOSS_SIZE/2, 
+										 	y + BOSS_SIZE/2);
 	if (type == PLAYER){
 		newUnit -> hitpoint = HERO_HP;
 		newUnit -> behavior = PLAYABLE;
 	} else if (type == ENEMY) {
 		newUnit -> hitpoint = ENEMY_HP;
 		/* Randomize behavior */
+		newUnit -> behavior = (rand()%2)+1;
+	} else if (type == BOSS) {
+		newUnit -> hitpoint = BOSS_HP;
 		newUnit -> behavior = UPANDDOWN;
 	}
 	if (list != NULL){

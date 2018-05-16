@@ -21,4 +21,13 @@ Level * loadLevel(const char * levelName);
 /* Print the level parameter */
 void printLevel(Level level);
 
+/* Automatic horizontal scroll */
+void scrollLevel(Level * level);
+
+/* Free from memory elements that are not in the screen */
+void freeOutOfScreenElements(Level * level);
+
+/* Check the boss position */
+int checkBossPosition(Level * level);
+
 #endif

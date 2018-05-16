@@ -1,3 +1,4 @@
+/* @uthor : Nathanael ROVERE & Michel YIP */
 #ifndef __ENUMTYPE__
 #define __ENUMTYPE__
 
@@ -9,15 +10,13 @@ typedef enum {
 
 typedef enum {
 	BULLET,
-	MISSILE,
-	BOMB
+	VOLLEY
 } fireType;
 
 typedef enum {
 	PLAYABLE,
 	UPANDDOWN,
-	FOLLOW,
-	HECTIC
+	FOLLOW
 } behavior;
 
 #endif

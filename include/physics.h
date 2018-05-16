@@ -24,9 +24,6 @@ int damageUnit(UnitList * unit, int damageDealt);
 /* Reduce an obstacle's hitpoint by the damage dealt in parameter */
 int damageObstacle(ObstacleList * obstacle, int damageDealt);
 
-/* Push a unit away from the collision */
-void knockbackUnit(Unit * unit, float y);
-
 /* Check if the player is immune to damage */
 int isImmune(Unit * player);
 
