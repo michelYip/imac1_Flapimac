@@ -13,4 +13,11 @@ typedef enum {
 	BOMB
 } fireType;
 
+typedef enum {
+	PLAYABLE,
+	UPANDDOWN,
+	FOLLOW,
+	HECTIC
+} behavior;
+
 #endif

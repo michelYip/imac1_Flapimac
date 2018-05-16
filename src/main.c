@@ -1,11 +1,6 @@
 /* @uthor : Nathanael ROVERE & Michel YIP */
 
-#include "../include/render.h"
 #include "../include/action.h"
-
-/* Dimension de la fenetre */
-static unsigned int WINDOW_WIDTH = 1600;
-static unsigned int WINDOW_HEIGHT = 760;
 
 /* Nombre de bits par pixel de la fenetre */
 static const unsigned int BIT_PER_PIXEL = 32;
@@ -66,8 +61,8 @@ int main (int argc, char ** argv){
 		glClear(GL_COLOR_BUFFER_BIT);
 
 		//draw Function
-		updateLevel(level);
 		renderLevel(*level);
+		updateElementsPosition(level);
 		scrollLevel(level);
 
 		/* Gestion des évènements SDL */

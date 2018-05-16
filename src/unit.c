@@ -24,8 +24,11 @@ void addUnit(UnitList * list, unitType type, fireType fire, float x, float y){
 										 	y + UNIT_SIZE/2);
 	if (type == PLAYER){
 		newUnit -> hitpoint = HERO_HP;
+		newUnit -> behavior = PLAYABLE;
 	} else if (type == ENEMY) {
 		newUnit -> hitpoint = ENEMY_HP;
+		/* Randomize behavior */
+		newUnit -> behavior = UPANDDOWN;
 	}
 	if (list != NULL){
 		newUnit -> next = (*list);	

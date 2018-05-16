@@ -11,6 +11,7 @@ typedef struct unit{
 	float x, y;
 	float x_velocity, y_velocity;
 	fireType fire;
+	behavior behavior;
 	BoundingBox * boundingBoxes;
 	unitType type;
 	struct unit * next;
@@ -24,6 +25,5 @@ void removeUnit(UnitList * list, int id);
 
 /* Print the position of the unit in parameter */
 void printUnitPosition(Unit unit);
-
 
 #endif

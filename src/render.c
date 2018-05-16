@@ -32,7 +32,7 @@ void renderPlayer(Level level){
 				glVertex2f(-UNIT_SIZE/2, -UNIT_SIZE/2);
 			glEnd();
 		glPopMatrix();
-		drawBoundingBoxes(level.player->boundingBoxes);
+		//drawBoundingBoxes(level.player->boundingBoxes);
 		level.player = level.player->next;
 	}
 }
@@ -93,4 +93,17 @@ void renderProjectiles(Level level){
 
 void scrollLevel(Level * level) {
 	glTranslatef(-SCROLLSPEED,0,0);
+}
+
+void isHurt(Unit * player){
+	glColor3ub(255,0,0);
+	glPushMatrix();
+		glTranslatef(player->x, player->y, 0);
+		glBegin(GL_QUADS);
+			glVertex2f(-UNIT_SIZE/2, UNIT_SIZE/2);
+			glVertex2f(UNIT_SIZE/2, UNIT_SIZE/2);
+			glVertex2f(UNIT_SIZE/2, -UNIT_SIZE/2);
+			glVertex2f(-UNIT_SIZE/2, -UNIT_SIZE/2);
+		glEnd();
+	glPopMatrix();
 }

@@ -2,7 +2,7 @@
 #ifndef __ACTION__
 #define __ACTION__
 
-#include "level.h"
+#include "physics.h"
 
 /* Move a unit  */
 void moveUnit(Unit * unit);

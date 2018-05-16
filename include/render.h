@@ -1,3 +1,4 @@
+/* @uthor : Nathanael ROVERE & Michel YIP */
 #ifndef __RENDER__
 #define __RENDER__
 
@@ -20,5 +21,8 @@ void renderProjectiles(Level level);
 
 /* Automatic horizontal scroll */
 void scrollLevel(Level * level);
+
+/* Make the player blink when it's immune to damage */
+void isHurt(Unit * player);
 
 #endif
