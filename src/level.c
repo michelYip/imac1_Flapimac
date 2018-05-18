@@ -60,17 +60,24 @@ Level * loadLevel(const char * levelName){
    			fscanf(fp, "%d", &r);
    			fscanf(fp, "%d", &g);
    			fscanf(fp, "%d", &b);
+   			//Obstacle
    			if (r == 255 && g == 255 && b == 255){
    				addObstacle(&(level->obstacles), (float)x*UNIT_SIZE, (float)y*UNIT_SIZE);
    			}
+   			//Enemy
    			else if (r == 255 && g == 0 && b == 0){
    				addUnit(&(level->enemies), ENEMY, BULLET, (float)x*UNIT_SIZE, (float)y*UNIT_SIZE);
    			}
+   			//Player
    			else if (r == 0 && g == 0 && b == 255){
    				addUnit(&(level->player), PLAYER, BULLET, (float)x*UNIT_SIZE, (float)y*UNIT_SIZE);
    			}
+   			//Boss
    			else if (r == 125 && g == 125 && b == 125){
    				addUnit(&(level->enemies), BOSS, VOLLEY, (float)x*UNIT_SIZE, (float)y*UNIT_SIZE);
+   			}
+   			else if (r == 0 && g == 255 && b == 0){
+   				//addBonus	
    			}
     	}
     }
