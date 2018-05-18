@@ -34,10 +34,12 @@ void checkCollisions(Level * level){
 void checkPlayerCollision(UnitList * unit, Level * level){
 	Unit * enemies;
 	Obstacle * obstacles;
+	Bonus * bonuses;
 	Unit * player = *unit;
 	while (player != NULL){
 		enemies = level->enemies;
 		obstacles = level->obstacles;
+		bonuses = level->bonuses;
 		while (enemies != NULL){
 			/*if (player == NULL){
 				player = *unit;
@@ -73,6 +75,23 @@ void checkPlayerCollision(UnitList * unit, Level * level){
 				removeObstacle(&(level->obstacles), obstacles->id);
 			}
 			obstacles = obstacles->next;
+		}
+		while (bonuses != NULL){
+			/*if (player == NULL){
+				player = *unit;
+				continue;
+			}*/
+			if (intersect(player->boundingBoxes, bonuses->boundingBoxes)){
+				applyBonus(bonuses, player);
+				removeBonus(&(level->bonuses), bonuses->id);
+			}
+			bonuses = bonuses->next;
+		}
+		if (intersect(player->boundingBoxes, level->terminal->upperBarrier->boundingBox)){
+			removeUnit(unit, player->id);
+		}
+		if (intersect(player->boundingBoxes, level->terminal->lowerBarrier->boundingBox)){
+			removeUnit(unit, player->id);
 		}
 		if (player == NULL){
 			player = *unit;
@@ -147,6 +166,10 @@ void checkProjectilesCollision(ProjectileList * projectiles, Level * level){
 			} else {
 				obstacles = obstacles->next;
 			}
+		}
+		if (intersect(tmp->boundingBoxes, level->terminal->boundingBox)){
+			level->terminal->state = 1;
+			removeProjectile(projectiles, tmp->id);
 		}
 		if (tmp == NULL){
 			tmp = *projectiles;

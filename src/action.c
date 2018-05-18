@@ -17,23 +17,28 @@ void moveUnit(Unit * unit){
 /* Shoot a bullet */
 void shoot(ProjectileList * projectiles, Unit * unit){
 	int reload = 0;
+	int i;
 	if (unit->type == PLAYER) reload = HERO_RELOAD;
 	else if (unit->type == ENEMY) reload = ENEMY_RELOAD;
 	else if (unit->type == BOSS) reload = BOSS_RELOAD;
 	if (SDL_GetTicks() >= unit->shotTime + reload){
-		//Add projectile Type 
-		if (unit->fire == BULLET){
+		if (unit->fire % 2 == 0){
+			for (i = 1; i <= unit->fire/2; i++){
+				addProjectile(projectiles, *unit, -i*2.5);
+				addProjectile(projectiles, *unit, i*2.5);
+			}
+		} 
+		else {
+			for (i = 1; i <= unit->fire/2; i++){
+				addProjectile(projectiles, *unit, -i*5);
+				addProjectile(projectiles, *unit, i*5);
+			}
 			addProjectile(projectiles, *unit, 0);
-		}
-		else if (unit->fire == VOLLEY){
-			addProjectile(projectiles, *unit, 10);
-			addProjectile(projectiles, *unit, 5);
-			addProjectile(projectiles, *unit, 0);
-			addProjectile(projectiles, *unit, -5);
-			addProjectile(projectiles, *unit, -10);
 		}
 		unit->shotTime = SDL_GetTicks();
-		printProjectiles(*projectiles);
+	} 
+	if (SDL_GetTicks() < unit->shotTime + reload && unit -> type == PLAYER) {
+		printf("unable to shoot !%d < %d\n",SDL_GetTicks(),unit->shotTime + reload);
 	}
 }
 

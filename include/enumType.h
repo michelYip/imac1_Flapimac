@@ -9,14 +9,14 @@ typedef enum {
 } unitType;
 
 typedef enum {
-	BULLET,
-	VOLLEY
-} fireType;
-
-typedef enum {
 	PLAYABLE,
 	UPANDDOWN,
 	FOLLOW
 } behavior;
+
+typedef enum {
+	HEART,
+	FIRE_UPGRADE
+} bonusType;
 
 #endif

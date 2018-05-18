@@ -5,6 +5,8 @@
 #include "unit.h"
 #include "projectile.h"
 #include "obstacle.h"
+#include "bonus.h"
+#include "barrier.h"
 
 typedef struct level{
 	int height;
@@ -12,7 +14,9 @@ typedef struct level{
 	Unit * player;
 	Unit * enemies;
 	Obstacle * obstacles;
+	Bonus * bonuses;
 	Projectile * projectiles;
+	Terminal * terminal;
 }Level;
 
 /* Load a level from a PPM File */

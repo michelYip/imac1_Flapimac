@@ -19,6 +19,12 @@ void renderObstacles(Level level);
 /* Render all the existing projectiles in the level */
 void renderProjectiles(Level level);
 
+/* Render all the existing bonuses in the level */
+void renderBonuses(Level level);
+
+/* Render the terminal of the level */
+void renderTerminal(Level level);
+
 /* Make the player blink when it's immune to damage */
 void isHurt(Unit * player);
 

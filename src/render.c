@@ -16,6 +16,10 @@ void renderLevel(Level level){
 	if (level.projectiles != NULL){
 		renderProjectiles(level);
 	}
+	if (level.bonuses != NULL){
+		renderBonuses(level);
+	}
+	renderTerminal(level);
 }
 
 
@@ -88,6 +92,34 @@ void renderProjectiles(Level level){
 		glPopMatrix();*/
 		drawBoundingBoxes(level.projectiles->boundingBoxes);
 		level.projectiles = level.projectiles->next;
+	}
+}
+
+/* Render all the existing bonuses in the level */
+void renderBonuses(Level level){
+	while (level.bonuses != NULL){
+		glColor3ub(0,255,0);
+		/*glPushMatrix();
+			glTranslatef(level.bonuses->x, level.bonuses->y, 0);
+			glBegin(GL_QUADS);
+				glVertex2f(-PROJECTILE_SIZE/2, PROJECTILE_SIZE/2);
+				glVertex2f(PROJECTILE_SIZE/2, PROJECTILE_SIZE/2);
+				glVertex2f(PROJECTILE_SIZE/2, -PROJECTILE_SIZE/2);
+				glVertex2f(-PROJECTILE_SIZE/2, -PROJECTILE_SIZE/2);
+			glEnd();
+		glPopMatrix();*/
+		drawBoundingBoxes(level.bonuses->boundingBoxes);
+		level.bonuses = level.bonuses->next;
+	}
+}
+
+/* Render the terminal of the level */
+void renderTerminal(Level level){
+	if (level.terminal != NULL){
+		glColor3ub(255,0,255);
+		drawBoundingBoxes(level.terminal->boundingBox);
+		drawBoundingBoxes(level.terminal->upperBarrier->boundingBox);
+		drawBoundingBoxes(level.terminal->lowerBarrier->boundingBox);
 	}
 }
 

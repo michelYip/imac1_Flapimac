@@ -5,7 +5,7 @@
 static int unitID = 0;
 
 /* Create a unit */
-void addUnit(UnitList * list, unitType type, fireType fire, float x, float y){
+void addUnit(UnitList * list, unitType type, int bulletNumber, float x, float y){
 	Unit * newUnit;
 	if ((newUnit = malloc(sizeof(Unit))) == NULL){
 		fprintf(stderr,"error while allocating memory for addUnit\n");
@@ -13,7 +13,7 @@ void addUnit(UnitList * list, unitType type, fireType fire, float x, float y){
 	}
 	newUnit -> id = unitID++;
 	newUnit -> type = type;
-	newUnit -> fire = fire;
+	newUnit -> fire = bulletNumber;
 	newUnit -> shotTime = 0;
 	newUnit -> x = x;
 	newUnit -> y = y;
@@ -29,13 +29,15 @@ void addUnit(UnitList * list, unitType type, fireType fire, float x, float y){
 										 	y + BOSS_SIZE/2);
 	if (type == PLAYER){
 		newUnit -> hitpoint = HERO_HP;
+		newUnit -> max_health = HERO_MAX_HEALTH;
 		newUnit -> behavior = PLAYABLE;
 	} else if (type == ENEMY) {
 		newUnit -> hitpoint = ENEMY_HP;
-		/* Randomize behavior */
+		newUnit -> max_health = ENEMY_HP;
 		newUnit -> behavior = (rand()%2)+1;
 	} else if (type == BOSS) {
 		newUnit -> hitpoint = BOSS_HP;
+		newUnit -> max_health = BOSS_HP;
 		newUnit -> behavior = UPANDDOWN;
 	}
 	if (list != NULL){

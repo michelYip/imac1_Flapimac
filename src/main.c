@@ -73,6 +73,10 @@ int main (int argc, char ** argv){
 		if (elapsedTime < FRAMERATE_MILLISECONDS){
 			SDL_Delay(FRAMERATE_MILLISECONDS - elapsedTime);
 		}
+
+		if (level->enemies == NULL && getState(level->terminal)){
+			openBarrier(level->terminal);
+		}
 	}
 
 	SDL_Quit();

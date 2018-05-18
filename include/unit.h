@@ -8,10 +8,11 @@
 typedef struct unit{
 	int id;
 	int hitpoint;
+	int max_health;
 	float x, y;
 	float x_velocity, y_velocity;
 	int shotTime;
-	fireType fire;
+	int fire;
 	behavior behavior;
 	BoundingBox * boundingBoxes;
 	unitType type;
@@ -19,7 +20,7 @@ typedef struct unit{
 } Unit, * UnitList;
 
 /* Create a unit */
-void addUnit(UnitList * list, unitType type, fireType fire, float x, float y);
+void addUnit(UnitList * list, unitType type, int fire, float x, float y);
 
 /* Remove a unit */
 void removeUnit(UnitList * list, int id);
