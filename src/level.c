@@ -72,7 +72,7 @@ Level * loadLevel(const char * levelName){
    			}
    			//Player
    			else if (r == 0 && g == 0 && b == 255){
-   				addUnit(&(level->player), PLAYER, HERO_FIRE, (float)x*UNIT_SIZE, (float)y*UNIT_SIZE);
+   				addUnit(&(level->player), PLAYER, HERO_FIRE, (float)3*UNIT_SIZE, (float)y*UNIT_SIZE);
    			}
    			//Boss
    			else if (r == 125 && g == 125 && b == 125){

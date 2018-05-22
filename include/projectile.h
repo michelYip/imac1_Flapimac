@@ -11,6 +11,7 @@ typedef struct projectile{
 	int damage;
 	float x, y;
 	float velocity;
+	int idTexture;
 	unitType master;
 	float orientation;
 	BoundingBox * boundingBoxes;

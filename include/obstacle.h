@@ -9,6 +9,7 @@ typedef struct obstacle{
 	int hitpoint;
 	float x, y;
 	BoundingBox * boundingBoxes;
+	int idTexture;
 	struct obstacle * next;
 } Obstacle, * ObstacleList;
 

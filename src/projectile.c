@@ -16,6 +16,7 @@ void addProjectile(ProjectileList * projectiles, Unit unit, int orientation){
 	newP -> x = unit.x;
 	newP -> y = unit.y;
 	newP -> velocity = (unit.type == PLAYER)? PROJECTILE_VELOCITY + unit.x_velocity : PROJECTILE_VELOCITY;
+	newP -> idTexture = (unit.type == PLAYER)? ID_PROJECTILE_PLAYER : (rand()%NB_PROJECTILES_ENEMY)+ID_PROJECTILE_ENEMY;
 	newP -> master = unit.type;
 	newP -> orientation = (unit.type == PLAYER)? 0 + orientation : 180 + orientation;
 	newP -> orientation *= M_PI / 180;

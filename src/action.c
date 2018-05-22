@@ -24,14 +24,14 @@ void shoot(ProjectileList * projectiles, Unit * unit){
 	if (SDL_GetTicks() >= unit->shotTime + reload){
 		if (unit->fire % 2 == 0){
 			for (i = 1; i <= unit->fire/2; i++){
-				addProjectile(projectiles, *unit, -i*3);
-				addProjectile(projectiles, *unit, i*3);
+				addProjectile(projectiles, *unit, -i*5);
+				addProjectile(projectiles, *unit, i*5);
 			}
 		} 
 		else {
 			for (i = 1; i <= unit->fire/2; i++){
-				addProjectile(projectiles, *unit, -i*7);
-				addProjectile(projectiles, *unit, i*7);
+				addProjectile(projectiles, *unit, -i*10);
+				addProjectile(projectiles, *unit, i*10);
 			}
 			addProjectile(projectiles, *unit, 0);
 		}

@@ -26,7 +26,7 @@ void renderLevel(Level level, GLuint textureID[TEXTURES_SIZE]){
 /* Render the player in the level */
 void renderPlayer(Level level, GLuint textureID[TEXTURES_SIZE]){
 	while (level.player != NULL){
-		drawUnit(*(level.player),textureID);
+		drawUnit(*(level.player));
 		level.player = level.player->next;
 	}
 }
@@ -34,7 +34,8 @@ void renderPlayer(Level level, GLuint textureID[TEXTURES_SIZE]){
 /* Render the enemies in the level */
 void renderEnemies(Level level, GLuint textureID[TEXTURES_SIZE]){
 	while (level.enemies != NULL){
-		drawUnit(*(level.enemies),textureID);
+		if (level.enemies->x < level.player->x + WINDOW_WIDTH)
+			drawUnit(*(level.enemies));
 		level.enemies = level.enemies->next;
 	}
 }
@@ -42,7 +43,8 @@ void renderEnemies(Level level, GLuint textureID[TEXTURES_SIZE]){
 /* Render the obstacles in the level */
 void renderObstacles(Level level, GLuint textureID[TEXTURES_SIZE]){
 	while (level.obstacles != NULL){
-	    drawObstacle(*(level.obstacles), textureID);
+		if (level.obstacles->x < level.player->x + WINDOW_WIDTH)
+	    	drawObstacle(*(level.obstacles));
 		level.obstacles = level.obstacles->next;
 	}
 }
@@ -50,7 +52,8 @@ void renderObstacles(Level level, GLuint textureID[TEXTURES_SIZE]){
 /* Render all the existing projectiles in the level */
 void renderProjectiles(Level level, GLuint textureID[TEXTURES_SIZE]){
 	while (level.projectiles != NULL){
-		drawProjectile(*(level.projectiles), textureID);
+		if (level.projectiles->x < level.player->x + WINDOW_WIDTH)
+			drawProjectile(*(level.projectiles));
 		level.projectiles = level.projectiles->next;
 	}
 }
@@ -58,7 +61,8 @@ void renderProjectiles(Level level, GLuint textureID[TEXTURES_SIZE]){
 /* Render all the existing bonuses in the level */
 void renderBonuses(Level level, GLuint textureID[TEXTURES_SIZE]){
 	while (level.bonuses != NULL){
-		drawBonus(*(level.bonuses), textureID);
+		if (level.bonuses->x < level.player->x + WINDOW_WIDTH)
+			drawBonus(*(level.bonuses));
 		level.bonuses = level.bonuses->next;
 	}
 }
@@ -66,7 +70,7 @@ void renderBonuses(Level level, GLuint textureID[TEXTURES_SIZE]){
 /* Render the terminal of the level */
 void renderTerminal(Level level, GLuint textureID[TEXTURES_SIZE]){
 	if (level.terminal != NULL){
-		drawTerminal(*(level.terminal), textureID);
+		drawTerminal(*(level.terminal));
 	}
 }
 

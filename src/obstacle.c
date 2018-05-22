@@ -15,6 +15,7 @@ void addObstacle(ObstacleList * list, float x, float y){
 	newObstacle -> hitpoint = OBSTACLE_HP;
 	newObstacle -> x = x;
 	newObstacle -> y = y;
+	newObstacle -> idTexture = (rand()%NB_ID_WALLS)+ID_WALL;
 	newObstacle -> boundingBoxes = initBoundingBox(x - OBSTACLE_SIZE/2,
 										 		y - OBSTACLE_SIZE/2, 
 											 	x + OBSTACLE_SIZE/2, 
