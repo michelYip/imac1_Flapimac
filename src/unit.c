@@ -19,10 +19,10 @@ void addUnit(UnitList * list, unitType type, int bulletNumber, float x, float y)
 	newUnit -> y = y;
 	newUnit -> x_velocity = (type == PLAYER)? SCROLLSPEED : 0;
 	newUnit -> y_velocity = 0;
-	newUnit -> boundingBoxes = (type != BOSS) ? initBoundingBox(x - UNIT_SIZE/2,
-										 	y - UNIT_SIZE/2, 
-										 	x + UNIT_SIZE/2, 
-										 	y + UNIT_SIZE/2) : 
+	newUnit -> boundingBoxes = (type != BOSS) ? initBoundingBox(x - ELEM_SIZE/2,
+										 	y - ELEM_SIZE/2, 
+										 	x + ELEM_SIZE/2, 
+										 	y + ELEM_SIZE/2) : 
 												initBoundingBox(x - BOSS_SIZE/2,
 										 	y - BOSS_SIZE/2, 
 										 	x + BOSS_SIZE/2, 

@@ -45,7 +45,7 @@ int getState(Terminal * terminal){
 /* Open the barrier at the end of the level */
 void openBarrier(Terminal * terminal){
 	moveBoundingBoxes(&(terminal->upperBarrier->boundingBox), 0, -1);
-	terminal->upperBarrier->y += -1;
+	terminal->upperBarrier->y += -2;
 	moveBoundingBoxes(&(terminal->lowerBarrier->boundingBox), 0, 1);
-	terminal->lowerBarrier->y += 1;
+	terminal->lowerBarrier->y += 2;
 }

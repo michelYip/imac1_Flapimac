@@ -120,7 +120,7 @@ void freeOutOfScreenElements(Level * level){
 	Projectile * projectile = level->projectiles;
 	Obstacle * obstacle = level->obstacles;
 	while (enemy != NULL){
-		if (enemy->x < level->player->x - UNIT_SIZE * 3){
+		if (enemy->x < level->player->x - ELEM_SIZE * 3){
 			removeUnit(&(level->enemies), enemy->id);
 			enemy = level->enemies;
 		}
@@ -130,7 +130,7 @@ void freeOutOfScreenElements(Level * level){
 		enemy = enemy->next;
 	}
 	while (projectile != NULL){
-		if (projectile->x < level->player->x - UNIT_SIZE * 3 || projectile->x > level->player->x + WINDOW_WIDTH - UNIT_SIZE * 3){
+		if (projectile->x < level->player->x - ELEM_SIZE * 3 || projectile->x > level->player->x + WINDOW_WIDTH - UNIT_SIZE * 3){
 			removeProjectile(&(level->projectiles), projectile->id);
 			projectile = level->projectiles;
 		}
@@ -140,7 +140,7 @@ void freeOutOfScreenElements(Level * level){
 		projectile = projectile->next;
 	}
 	while (obstacle != NULL){
-		if (obstacle->x < level->player->x - OBSTACLE_SIZE * 3){
+		if (obstacle->x < level->player->x - ELEM_SIZE * 3){
 			removeObstacle(&(level->obstacles), obstacle->id);
 			obstacle = level->obstacles;
 		}

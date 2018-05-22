@@ -3,123 +3,70 @@
 #include "../include/render.h"
 
 /* Render the object in the level */
-void renderLevel(Level level){
+void renderLevel(Level level, GLuint textureID[TEXTURES_SIZE]){
 	if (level.player != NULL){
-		renderPlayer(level);
+		renderPlayer(level,textureID);
 	}
 	if (level.enemies != NULL){
-		renderEnemies(level);
+		renderEnemies(level,textureID);
 	}
 	if (level.obstacles != NULL){
-		renderObstacles(level);
+		renderObstacles(level,textureID);
 	}
 	if (level.projectiles != NULL){
-		renderProjectiles(level);
+		renderProjectiles(level,textureID);
 	}
 	if (level.bonuses != NULL){
-		renderBonuses(level);
+		renderBonuses(level,textureID);
 	}
-	renderTerminal(level);
+	renderTerminal(level,textureID);
 }
 
 
 /* Render the player in the level */
-void renderPlayer(Level level){
+void renderPlayer(Level level, GLuint textureID[TEXTURES_SIZE]){
 	while (level.player != NULL){
-	    glColor3ub(0,0,255);
-		glPushMatrix();
-			glTranslatef(level.player->x, level.player->y, 0);
-			glBegin(GL_QUADS);
-				glVertex2f(-UNIT_SIZE/2, UNIT_SIZE/2);
-				glVertex2f(UNIT_SIZE/2, UNIT_SIZE/2);
-				glVertex2f(UNIT_SIZE/2, -UNIT_SIZE/2);
-				glVertex2f(-UNIT_SIZE/2, -UNIT_SIZE/2);
-			glEnd();
-		glPopMatrix();
-		//drawBoundingBoxes(level.player->boundingBoxes);
+		drawUnit(*(level.player),textureID);
 		level.player = level.player->next;
 	}
 }
 
 /* Render the enemies in the level */
-void renderEnemies(Level level){
+void renderEnemies(Level level, GLuint textureID[TEXTURES_SIZE]){
 	while (level.enemies != NULL){
-	    glColor3ub(255,0,0);
-		/*glPushMatrix();
-			glTranslatef(level.enemies->x, level.enemies->y, 0);
-			glBegin(GL_QUADS);
-				glVertex2f(-UNIT_SIZE/2, UNIT_SIZE/2);
-				glVertex2f(UNIT_SIZE/2, UNIT_SIZE/2);
-				glVertex2f(UNIT_SIZE/2, -UNIT_SIZE/2);
-				glVertex2f(-UNIT_SIZE/2, -UNIT_SIZE/2);
-			glEnd();
-		glPopMatrix();*/
-		drawBoundingBoxes(level.enemies->boundingBoxes);
+		drawUnit(*(level.enemies),textureID);
 		level.enemies = level.enemies->next;
 	}
 }
 
 /* Render the obstacles in the level */
-void renderObstacles(Level level){
+void renderObstacles(Level level, GLuint textureID[TEXTURES_SIZE]){
 	while (level.obstacles != NULL){
-	    glColor3ub(255,255,255);
-		/*glPushMatrix();
-			glTranslatef(level.obstacles->x, level.obstacles->y, 0);
-			glBegin(GL_QUADS);
-				glVertex2f(-OBSTACLE_SIZE/2, OBSTACLE_SIZE/2);
-				glVertex2f(OBSTACLE_SIZE/2, OBSTACLE_SIZE/2);
-				glVertex2f(OBSTACLE_SIZE/2, -OBSTACLE_SIZE/2);
-				glVertex2f(-OBSTACLE_SIZE/2, -OBSTACLE_SIZE/2);
-			glEnd();
-		glPopMatrix();*/
-		drawBoundingBoxes(level.obstacles->boundingBoxes);
+	    drawObstacle(*(level.obstacles), textureID);
 		level.obstacles = level.obstacles->next;
 	}
 }
 
 /* Render all the existing projectiles in the level */
-void renderProjectiles(Level level){
+void renderProjectiles(Level level, GLuint textureID[TEXTURES_SIZE]){
 	while (level.projectiles != NULL){
-		glColor3ub(255,255,0);
-		/*glPushMatrix();
-			glTranslatef(level.projectiles->x, level.projectiles->y, 0);
-			glBegin(GL_QUADS);
-				glVertex2f(-PROJECTILE_SIZE/2, PROJECTILE_SIZE/2);
-				glVertex2f(PROJECTILE_SIZE/2, PROJECTILE_SIZE/2);
-				glVertex2f(PROJECTILE_SIZE/2, -PROJECTILE_SIZE/2);
-				glVertex2f(-PROJECTILE_SIZE/2, -PROJECTILE_SIZE/2);
-			glEnd();
-		glPopMatrix();*/
-		drawBoundingBoxes(level.projectiles->boundingBoxes);
+		drawProjectile(*(level.projectiles), textureID);
 		level.projectiles = level.projectiles->next;
 	}
 }
 
 /* Render all the existing bonuses in the level */
-void renderBonuses(Level level){
+void renderBonuses(Level level, GLuint textureID[TEXTURES_SIZE]){
 	while (level.bonuses != NULL){
-		glColor3ub(0,255,0);
-		/*glPushMatrix();
-			glTranslatef(level.bonuses->x, level.bonuses->y, 0);
-			glBegin(GL_QUADS);
-				glVertex2f(-PROJECTILE_SIZE/2, PROJECTILE_SIZE/2);
-				glVertex2f(PROJECTILE_SIZE/2, PROJECTILE_SIZE/2);
-				glVertex2f(PROJECTILE_SIZE/2, -PROJECTILE_SIZE/2);
-				glVertex2f(-PROJECTILE_SIZE/2, -PROJECTILE_SIZE/2);
-			glEnd();
-		glPopMatrix();*/
-		drawBoundingBoxes(level.bonuses->boundingBoxes);
+		drawBonus(*(level.bonuses), textureID);
 		level.bonuses = level.bonuses->next;
 	}
 }
 
 /* Render the terminal of the level */
-void renderTerminal(Level level){
+void renderTerminal(Level level, GLuint textureID[TEXTURES_SIZE]){
 	if (level.terminal != NULL){
-		glColor3ub(255,0,255);
-		drawBoundingBoxes(level.terminal->boundingBox);
-		drawBoundingBoxes(level.terminal->upperBarrier->boundingBox);
-		drawBoundingBoxes(level.terminal->lowerBarrier->boundingBox);
+		drawTerminal(*(level.terminal), textureID);
 	}
 }
 
@@ -128,10 +75,11 @@ void isHurt(Unit * player){
 	glPushMatrix();
 		glTranslatef(player->x, player->y, 0);
 		glBegin(GL_QUADS);
-			glVertex2f(-UNIT_SIZE/2, UNIT_SIZE/2);
-			glVertex2f(UNIT_SIZE/2, UNIT_SIZE/2);
-			glVertex2f(UNIT_SIZE/2, -UNIT_SIZE/2);
-			glVertex2f(-UNIT_SIZE/2, -UNIT_SIZE/2);
+			glVertex2f(-ELEM_SIZE/2, ELEM_SIZE/2);
+			glVertex2f(ELEM_SIZE/2, ELEM_SIZE/2);
+			glVertex2f(ELEM_SIZE/2, -ELEM_SIZE/2);
+			glVertex2f(-ELEM_SIZE/2, -ELEM_SIZE/2);
 		glEnd();
 	glPopMatrix();
+	glColor3ub(255,255,255);
 }

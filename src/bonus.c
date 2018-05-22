@@ -15,10 +15,10 @@ void addBonus(BonusList * list, float x, float y){
 	newBonus -> x = x;
 	newBonus -> y = y;
 	newBonus -> type = rand()%2;
-	newBonus -> boundingBoxes = initBoundingBox(x - UNIT_SIZE/2,
-										 	y - UNIT_SIZE/2, 
-										 	x + UNIT_SIZE/2, 
-										 	y + UNIT_SIZE/2);
+	newBonus -> boundingBoxes = initBoundingBox(x - BONUS_SIZE/2,
+										 	y - BONUS_SIZE/2, 
+										 	x + BONUS_SIZE/2, 
+										 	y + BONUS_SIZE/2);
 	if (list != NULL){
 		newBonus -> next = (*list);	
 	} else {

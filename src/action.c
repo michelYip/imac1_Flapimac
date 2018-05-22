@@ -4,7 +4,7 @@
 
 /* Move a unit  */
 void moveUnit(Unit * unit){
-	if (unit->y + unit->y_velocity < UNIT_SIZE/2 || unit->y + unit->y_velocity > WINDOW_HEIGHT-UNIT_SIZE/2){
+	if (unit->y + unit->y_velocity < ELEM_SIZE/2 || unit->y + unit->y_velocity > WINDOW_HEIGHT-ELEM_SIZE/2){
 		moveBoundingBoxes(&(unit->boundingBoxes), unit->x_velocity, 0);
 		unit->x += unit->x_velocity;
 		return;
@@ -24,22 +24,19 @@ void shoot(ProjectileList * projectiles, Unit * unit){
 	if (SDL_GetTicks() >= unit->shotTime + reload){
 		if (unit->fire % 2 == 0){
 			for (i = 1; i <= unit->fire/2; i++){
-				addProjectile(projectiles, *unit, -i*2.5);
-				addProjectile(projectiles, *unit, i*2.5);
+				addProjectile(projectiles, *unit, -i*3);
+				addProjectile(projectiles, *unit, i*3);
 			}
 		} 
 		else {
 			for (i = 1; i <= unit->fire/2; i++){
-				addProjectile(projectiles, *unit, -i*5);
-				addProjectile(projectiles, *unit, i*5);
+				addProjectile(projectiles, *unit, -i*7);
+				addProjectile(projectiles, *unit, i*7);
 			}
 			addProjectile(projectiles, *unit, 0);
 		}
 		unit->shotTime = SDL_GetTicks();
 	} 
-	if (SDL_GetTicks() < unit->shotTime + reload && unit -> type == PLAYER) {
-		printf("unable to shoot !%d < %d\n",SDL_GetTicks(),unit->shotTime + reload);
-	}
 }
 
 /* Control the user input */

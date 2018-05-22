@@ -19,7 +19,7 @@ void updateEnemies(Level * level){
 
 /* Update the position of an enemy with UPANDDOWN behavior */
 void updateUpAndDown(Unit * enemy){
-	int size = (enemy->type == BOSS)? BOSS_SIZE : UNIT_SIZE;
+	int size = (enemy->type == BOSS)? BOSS_SIZE : ELEM_SIZE;
 	if (enemy->y_velocity == 0)
 		enemy->y_velocity = ENEMY_VELOCITY;
 	if (enemy->y_velocity > 0 && enemy->y >= WINDOW_HEIGHT-size){

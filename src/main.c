@@ -45,15 +45,17 @@ int main (int argc, char ** argv){
 	SDL_WM_SetCaption("Nathanael ROVERE & Michel YIP - Flapimac", NULL);
 	transform();
 
+	SDL_Surface * textures[TEXTURES_SIZE];
+    loadTextures(textures);
+    GLuint textureID[TEXTURES_SIZE];
+    glGenTextures(TEXTURES_SIZE, textureID);
+    configTextures(textures, textureID);
+
 	int loop = 1;
 
     glColor3ub(255,255,255);
 	
 	while(loop){
-		if (level->player == NULL){
-			printf("Game Over !\n");
-			return EXIT_SUCCESS;
-		}
 		Uint32 startTime = SDL_GetTicks();
 
 		/* Echange les deux buffers */
@@ -62,9 +64,13 @@ int main (int argc, char ** argv){
 		glClear(GL_COLOR_BUFFER_BIT);
 
 		//draw Function
-		renderLevel(*level);
+		scroll(level, textureID);
+		renderLevel(*level, textureID);
 		updateElementsPosition(level);
-		scrollLevel(level);
+		if (level->player == NULL){
+			printf("Game Over !\n");
+			return EXIT_SUCCESS;
+		}
 
 		/* Gestion des évènements SDL */
 		userInput(level);
@@ -76,6 +82,11 @@ int main (int argc, char ** argv){
 
 		if (level->enemies == NULL && getState(level->terminal)){
 			openBarrier(level->terminal);
+		}
+
+		if (level->player->x >= UNIT_SIZE * level->width){
+			printf("VICTORY !!!\n");
+			break;
 		}
 	}
 
