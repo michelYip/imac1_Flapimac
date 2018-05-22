@@ -406,7 +406,7 @@ void createDrawObstacleIDList(GLuint textureID[TEXTURES_SIZE]){
 
 /* Create an ID List for drawing the UI */
 void createDrawUIIDList(GLuint textureID[TEXTURES_SIZE]){
-     glNewList(ID_UI_HEART, GL_COMPILE);
+    glNewList(ID_UI_HEART, GL_COMPILE);
         glEnable(GL_TEXTURE_2D);
         glBindTexture(GL_TEXTURE_2D, textureID[ID_UI_HEART]);
         glPushMatrix();
