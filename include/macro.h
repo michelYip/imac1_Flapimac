@@ -13,7 +13,7 @@
 
 /* 	STATS PARAMETERS */
 #define UNIT_SIZE 40
-#define ELEM_SIZE 90
+#define ELEM_SIZE 70
 #define COLLISION_DAMAGE 1
 
 /* HERO STATS */
@@ -34,15 +34,15 @@
 #define ENEMY_RELOAD 1000
 
 /* BOSS STATS */
-#define BOSS_HP 100
+#define BOSS_HP 10
 #define BOSS_SIZE 300
 #define BOSS_RELOAD 800
 #define BOSS_FIRE 7
 
 /* PROJECTILES STATS */
 #define PROJECTILE_DMG 1
-#define PROJECTILE_VELOCITY 12
-#define PROJECTILE_SIZE 50
+#define PROJECTILE_VELOCITY 5
+#define PROJECTILE_SIZE 40
 
 /* OBSTACLES STATS */
 #define OBSTACLE_HP 3
@@ -57,10 +57,14 @@
 #define TERMINAL_SIZE 80
 #define BARRIER_WIDTH 100
 #define BARRIER_HEIGHT 400
-#define SCROLLSPEED 6
+#define SCROLLSPEED 4
+
+/* UI PARAMETERS */
+#define UI_SIZE 50
+#define UI_MARGIN 20
 
 /* TEXTURES */
-#define TEXTURES_SIZE 21
+#define TEXTURES_SIZE 23
 #define TEXTURE_NAME_MAX_SIZE 20
 #define ID_BACKGROUND1 1
 #define ID_BACKGROUND2 2
@@ -77,5 +81,7 @@
 #define ID_BARRIER 16
 #define ID_WALL 17
 #define NB_ID_WALLS 5
+#define ID_UI_HEART 22
+#define ID_UI_BULLET 23
 
 #endif

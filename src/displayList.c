@@ -156,7 +156,7 @@ void createDrawProjectileIDList(GLuint textureID[TEXTURES_SIZE]){
         glDisable(GL_TEXTURE_2D);
         glBindTexture(GL_TEXTURE_2D, 0);
     glEndList();
-    /*glNewList(ID_PROJECTILE_ENEMY+1, GL_COMPILE);
+    glNewList(ID_PROJECTILE_ENEMY+1, GL_COMPILE);
         glEnable(GL_TEXTURE_2D);
         glBindTexture(GL_TEXTURE_2D, textureID[ID_PROJECTILE_ENEMY+1]);
         glPushMatrix();
@@ -227,7 +227,7 @@ void createDrawProjectileIDList(GLuint textureID[TEXTURES_SIZE]){
         glPopMatrix();
         glDisable(GL_TEXTURE_2D);
         glBindTexture(GL_TEXTURE_2D, 0);
-    glEndList();*/
+    glEndList();
 }
 
 /* Create an ID List for drawing a bonus */
@@ -330,7 +330,7 @@ void createDrawObstacleIDList(GLuint textureID[TEXTURES_SIZE]){
         glDisable(GL_TEXTURE_2D);
         glBindTexture(GL_TEXTURE_2D, 0);
     glEndList();
-    /*glNewList(ID_WALL+1, GL_COMPILE);
+    glNewList(ID_WALL+1, GL_COMPILE);
         glEnable(GL_TEXTURE_2D);
         glBindTexture(GL_TEXTURE_2D, textureID[ID_WALL+1]);
         glPushMatrix();
@@ -401,5 +401,47 @@ void createDrawObstacleIDList(GLuint textureID[TEXTURES_SIZE]){
         glPopMatrix();
         glDisable(GL_TEXTURE_2D);
         glBindTexture(GL_TEXTURE_2D, 0);
-    glEndList();*/
+    glEndList();
+}
+
+/* Create an ID List for drawing the UI */
+void createDrawUIIDList(GLuint textureID[TEXTURES_SIZE]){
+     glNewList(ID_UI_HEART, GL_COMPILE);
+        glEnable(GL_TEXTURE_2D);
+        glBindTexture(GL_TEXTURE_2D, textureID[ID_UI_HEART]);
+        glPushMatrix();
+            glBegin(GL_QUADS);
+                glTexCoord2f(0,0);
+                glVertex2f(-UI_SIZE/2,-UI_SIZE/2);
+                glTexCoord2f(1,0);
+                glVertex2f(UI_SIZE/2,-UI_SIZE/2);
+                glTexCoord2f(1,1);
+                glVertex2f(UI_SIZE/2,UI_SIZE/2);
+                glTexCoord2f(0,1);
+                glVertex2f(-UI_SIZE/2,UI_SIZE/2);
+            glEnd();
+        glPopMatrix();
+        glDisable(GL_TEXTURE_2D);
+        glBindTexture(GL_TEXTURE_2D, 0);
+    glEndList();
+    glNewList(ID_UI_BULLET, GL_COMPILE);
+        glEnable(GL_TEXTURE_2D);
+        glBindTexture(GL_TEXTURE_2D, textureID[ID_UI_BULLET]);
+        glPushMatrix();
+            glRotatef(30,0,0,1);
+            glScalef(1.5,1.5,0);
+            glBegin(GL_QUADS);
+                glTexCoord2f(0,0);
+                glVertex2f(-UI_SIZE/2,-UI_SIZE/2);
+                glTexCoord2f(1,0);
+                glVertex2f(UI_SIZE/2,-UI_SIZE/2);
+                glTexCoord2f(1,1);
+                glVertex2f(UI_SIZE/2,UI_SIZE/2);
+                glTexCoord2f(0,1);
+                glVertex2f(-UI_SIZE/2,UI_SIZE/2);
+            glEnd();
+        glPopMatrix();
+        glDisable(GL_TEXTURE_2D);
+        glBindTexture(GL_TEXTURE_2D, 0);
+    glEndList();
 }

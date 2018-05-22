@@ -20,6 +20,7 @@ void renderLevel(Level level, GLuint textureID[TEXTURES_SIZE]){
 		renderBonuses(level,textureID);
 	}
 	renderTerminal(level,textureID);
+	drawUI(level);
 }
 
 

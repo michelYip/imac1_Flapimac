@@ -28,6 +28,9 @@ void drawTerminal(Terminal terminal);
 /* Draw an obstacle */
 void drawObstacle(Obstacle obstacle);
 
+/* Draw the UI */
+void drawUI(Level level);
+
 /* Scroll the background and the level */
 void scroll(Level * level, GLuint textureID[TEXTURES_SIZE]);
 
