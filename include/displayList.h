@@ -25,6 +25,9 @@ void createDrawObstacleIDList(GLuint textureID[TEXTURES_SIZE]);
 /* Create an ID List for drawing the UI */
 void createDrawUIIDList(GLuint textureID[TEXTURES_SIZE]);
 
+/* Create an ID List for drawing the title screens, game over and victory */
+void createDrawMenusScreenIDList(GLuint textureID[TEXTURES_SIZE]);
+
 /* Scroll the background and the level */
 void scroll(Level * level, GLuint textureID[TEXTURES_SIZE]);
 

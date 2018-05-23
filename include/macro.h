@@ -19,7 +19,7 @@
 /* HERO STATS */
 #define HERO_HP 5
 #define HERO_MAX_HEALTH 10
-#define HERO_VELOCITY 10
+#define HERO_VELOCITY 7
 #define HERO_RELOAD 300
 #define HERO_FIRE 1
 #define HERO_MAX_FIRE 7
@@ -36,7 +36,7 @@
 /* BOSS STATS */
 #define BOSS_HP 10
 #define BOSS_SIZE 300
-#define BOSS_RELOAD 800
+#define BOSS_RELOAD 700
 #define BOSS_FIRE 7
 
 /* PROJECTILES STATS */
@@ -60,11 +60,11 @@
 #define SCROLLSPEED 4
 
 /* UI PARAMETERS */
-#define UI_SIZE 50
+#define UI_SIZE 70
 #define UI_MARGIN 20
 
 /* TEXTURES */
-#define TEXTURES_SIZE 23
+#define TEXTURES_SIZE 27
 #define TEXTURE_NAME_MAX_SIZE 20
 #define ID_BACKGROUND1 1
 #define ID_BACKGROUND2 2
@@ -83,5 +83,9 @@
 #define NB_ID_WALLS 5
 #define ID_UI_HEART 22
 #define ID_UI_BULLET 23
+#define ID_TITLE_SCREEN 24
+#define ID_GAME_OVER_SCREEN 25
+#define ID_VICTORY_SCREEN 26
+#define ID_ARROW 27
 
 #endif

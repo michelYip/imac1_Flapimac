@@ -3,6 +3,7 @@
 #define __RENDER__
 
 #include "textures.h"
+#include "UI.h"
 
 /* Render the different object in the level */
 void renderLevel(Level level, GLuint textureID[TEXTURES_SIZE]);

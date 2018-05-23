@@ -7,7 +7,6 @@ void loadTextures(SDL_Surface * textures[TEXTURES_SIZE]){
 	int i;
 	char * texture_name = malloc(sizeof(char)*TEXTURE_NAME_MAX_SIZE);
 	for (i = 1; i <= TEXTURES_SIZE; i++){
-		printf("img/%d.png\n",i);
 		sprintf(texture_name, "img/%d.png", i);
 		if ((textures[i] = IMG_Load(texture_name)) == NULL){
 	        fprintf(stderr,"An error occured when loading the image : img/%d.png\n", i);
@@ -48,6 +47,7 @@ void configTextures(SDL_Surface * textures[TEXTURES_SIZE], GLuint textureID[TEXT
 	createDrawTerminalIDList(textureID);
 	createDrawObstacleIDList(textureID);
 	createDrawUIIDList(textureID);
+	createDrawMenusScreenIDList(textureID);
 }
 
 /* Draw the background */
@@ -126,24 +126,6 @@ void drawObstacle(Obstacle obstacle){
 	glPopMatrix();
 }
 
-/* Draw the UI */
-void drawUI(Level level){
-	int i;
-	glPushMatrix();
-		glTranslatef(level.player->x, UI_SIZE + UI_MARGIN, 0);
-		for (i = 0; i < level.player->hitpoint; i++){
-			glCallList(ID_UI_HEART);
-			glTranslatef(UI_SIZE + UI_MARGIN, 0, 0);
-		}
-	glPopMatrix();
-	glPushMatrix();
-		glTranslatef(level.player->x, WINDOW_HEIGHT - UI_SIZE - UI_MARGIN, 0);
-		for (i = 0; i < level.player->fire; i++){
-			glCallList(ID_UI_BULLET);
-			glTranslatef(UI_SIZE + UI_MARGIN, 0, 0);
-		}
-	glPopMatrix();	
-}
 /* Scroll the background and the level */
 void scroll(Level * level, GLuint textureID[TEXTURES_SIZE]){
 	scrollLevel(level);
