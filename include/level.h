@@ -34,4 +34,7 @@ void freeOutOfScreenElements(Level * level);
 /* Check the boss position */
 int checkBossPosition(Level * level);
 
+/* Free from memory the current level */
+void freeLevel(Level * level);
+
 #endif

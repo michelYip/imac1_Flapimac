@@ -49,3 +49,9 @@ void openBarrier(Terminal * terminal){
 	moveBoundingBoxes(&(terminal->lowerBarrier->boundingBox), 0, 1);
 	terminal->lowerBarrier->y += 2;
 }
+
+void removeTerminal(Terminal * terminal){
+	free(terminal->upperBarrier);
+	free(terminal->lowerBarrier);
+	free(terminal);
+}

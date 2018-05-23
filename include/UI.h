@@ -11,6 +11,9 @@ void drawUI(Level level);
 /* Drawn the title Screen */
 void drawTitleScreen();
 
+/* Draw the level select screen */
+void drawLevelSelectScreen();
+
 /* Draw the victory screen */
 void drawVictoryScreen();
 
@@ -18,6 +21,9 @@ void drawVictoryScreen();
 void drawGameOverScreen();
 
 /* Draw an arrow */
-void drawArrow();
+void drawArrow(int horizontalMargin, int verticalMargin, int choice);
+
+/* Control the input in the menu */
+int menuInput(int * choice, int maxChoice);
 
 #endif

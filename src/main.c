@@ -32,7 +32,7 @@ void transform(){
 int main (int argc, char ** argv){
 	srand(time(NULL));
 	
-	Level * level;
+	Level * level = NULL;
 
 	if (SDL_Init(SDL_INIT_VIDEO) == -1){
 		fprintf(stderr, "Impossible d'initialiser la SDL. Fin du programme.\n");
@@ -51,9 +51,12 @@ int main (int argc, char ** argv){
 
 	int loop = 1;
 	int inMenu = 1;
+	int levelSelect = 0;
 	int victory = 0;
 	int defeat = 0;
-	int choice = 0;
+	int choice = 1;
+	int levelNumber = 0;
+	char * levelName;
 
     glColor3ub(255,255,255);
     glPushMatrix();
@@ -66,142 +69,94 @@ int main (int argc, char ** argv){
 			victory = 0;
 			defeat = 0;
 			drawTitleScreen();
-			if (!choice){
-				glPushMatrix();
-					glTranslatef(250, 575, 0);
-					drawArrow();
-				glPopMatrix();
-			} else {
-				glPushMatrix();
-					glTranslatef(1000, 575, 0);
-					drawArrow();
-				glPopMatrix();
-			}	
-			SDL_Event e;
-			while(SDL_PollEvent(&e)) {
-				switch(e.type){
-					case SDL_KEYUP:
-						switch(e.key.keysym.sym){
-							case SDLK_SPACE:
-								if (!choice){
-									inMenu = 0;
-									level = loadLevel("level/testLevel.ppm");
-								} else {
-									loop = 0;
-									break;
-								}
-				    	      	break;
-				    	    case SDLK_LEFT:
-				    	    	choice = 0;
-				    	    	break;
-				    	    case SDLK_RIGHT:
-				    	    	choice = 1;
-				    	    	break;
-				            default:
-				                break;
-						}
-						break;
-					default:
-						break;
-				}
+			drawArrow(1090, 325, choice);
+			int input = menuInput(&choice, 2);
+			if(input == 1){
+				inMenu = 0;
+				levelSelect = 1;
+			} else if(input == 2){
+				loop = 0;
+			}
+		}
+		else if (levelSelect){
+			drawLevelSelectScreen();
+			drawArrow(1035, 140, choice);
+			int input = menuInput(&choice, 4);
+			if(input == 1){
+				levelSelect = 0;
+				levelNumber = 1;
+				level = loadLevel("level/1.ppm");
+			} else if(input == 2){
+				levelSelect = 0;
+				levelNumber = 2;
+				level = loadLevel("level/2.ppm");
+			} else if (input == 3){
+				levelSelect = 0;
+				levelNumber = 3;
+				level = loadLevel("level/3.ppm");
+			} else if (input == 4){
+				levelSelect = 0;
+				choice = 1;
+				inMenu = 1;
 			}
 		}
 		else if (defeat && !victory){
 			drawGameOverScreen();
-			if (!choice){
-				glPushMatrix();
-					glTranslatef(250, 575, 0);
-					drawArrow();
-				glPopMatrix();
-			} else {
-				glPushMatrix();
-					glTranslatef(1000, 575, 0);
-					drawArrow();
-				glPopMatrix();
-			}	
-			SDL_Event e;
-			while(SDL_PollEvent(&e)) {
-				switch(e.type){
-					case SDL_KEYUP:
-						switch(e.key.keysym.sym){
-							case SDLK_SPACE:
-								if (!choice){
-									inMenu = 1;
-								} else {
-									loop = 0;
-									break;
-								}
-				    	      	break;
-				    	    case SDLK_LEFT:
-				    	    	choice = 0;
-				    	    	break;
-				    	    case SDLK_RIGHT:
-				    	    	choice = 1;
-				    	    	break;
-				            default:
-				                break;
-						}
-						break;
-					default:
-						break;
+			drawArrow(1025, 220, choice);
+			int input = menuInput(&choice, 3);
+			if(input == 1){
+				victory = 0;
+				defeat = 0;
+				inMenu = 0;
+				if ((levelName = malloc(sizeof(char)*11)) == NULL){
+					exit(EXIT_FAILURE);
 				}
+				sprintf(levelName, "level/%d.ppm", levelNumber);
+				level = loadLevel(levelName);
+			} else if(input == 2){
+				choice = 1;
+				inMenu = 1;
+			} else if (input == 3){
+				loop = 0;
 			}
 		}
 		else if (!defeat && victory){
 			drawVictoryScreen();
-			if (!choice){
-				glPushMatrix();
-					glTranslatef(250, 575, 0);
-					drawArrow();
-				glPopMatrix();
-			} else {
-				glPushMatrix();
-					glTranslatef(1000, 575, 0);
-					drawArrow();
-				glPopMatrix();
-			}	
-			SDL_Event e;
-			while(SDL_PollEvent(&e)) {
-				switch(e.type){
-					case SDL_KEYUP:
-						switch(e.key.keysym.sym){
-							case SDLK_SPACE:
-								if (!choice){
-									inMenu = 1;
-								} else {
-									loop = 0;
-									break;
-								}
-				    	      	break;
-				    	    case SDLK_LEFT:
-				    	    	choice = 0;
-				    	    	break;
-				    	    case SDLK_RIGHT:
-				    	    	choice = 1;
-				    	    	break;
-				            default:
-				                break;
-						}
-						break;
-					default:
-						break;
+			drawArrow(1025, 220, choice);
+			int input = menuInput(&choice, 3);
+			if(input == 1){
+				victory = 0;
+				defeat = 0;
+				inMenu = 0;
+				levelNumber++;
+				if (levelNumber > 3) levelNumber = 3;
+				if ((levelName = malloc(sizeof(char)*11)) == NULL){
+					exit(EXIT_FAILURE);
 				}
+				sprintf(levelName, "level/%d.ppm", levelNumber);
+				level = loadLevel(levelName);
+			} else if(input == 2){
+				choice = 1;
+				inMenu = 1;
+			} else if (input == 3){
+				loop = 0;
 			}
 		}
 
 		/* InGame */
 		else{
-			/* Draw Function */
+			/* Draw Function */	
 			scroll(level, textureID);
 			renderLevel(*level, textureID);
 			updateElementsPosition(level);
 			
 			if (level->player == NULL){
-				printf("Game Over !\n");
+				free(level);
 				glPopMatrix();
 				glPushMatrix();
 				defeat = 1;
 				victory = 0;
+				choice = 1;
 				continue;
 			}
 
@@ -213,11 +168,12 @@ int main (int argc, char ** argv){
 			}
 
 			if (level->player->x >= UNIT_SIZE * level->width){
-				printf("VICTORY !!!\n");
+				free(level);
 				glPopMatrix();
 				glPushMatrix();
 				victory = 1;
 				defeat = 0;
+				choice = 1;
 				continue;
 			}
 		}

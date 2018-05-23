@@ -176,3 +176,23 @@ int checkBossPosition(Level * level){
 		return 0;
 	}
 }
+
+/* Free from memory the current level */
+void freeLevel(Level * level){
+	while (level->player != NULL){
+		removeUnit(&(level->player),level->player->id);
+	}
+	while (level->enemies != NULL){
+		removeUnit(&(level->enemies), level->enemies->id);
+	}
+	while (level->obstacles != NULL){
+		removeObstacle(&(level->obstacles), level->obstacles->id);
+	}
+	while (level->bonuses != NULL){
+		removeBonus(&(level->bonuses), level->bonuses->id);
+	}
+	while (level->projectiles != NULL){
+		removeProjectile(&(level->projectiles), level->projectiles->id);
+	}
+	free(level->terminal);
+}

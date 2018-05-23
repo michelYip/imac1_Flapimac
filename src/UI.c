@@ -26,6 +26,11 @@ void drawTitleScreen(){
 	glCallList(ID_TITLE_SCREEN);
 }
 
+/* Draw the level select screen */
+void drawLevelSelectScreen(){
+	glCallList(ID_LEVEL_SELECT_SCREEN);
+}
+
 /* Draw the victory screen */
 void drawVictoryScreen(){
 	glCallList(ID_VICTORY_SCREEN);
@@ -37,6 +42,36 @@ void drawGameOverScreen(){
 }
 
 /* Draw an arrow */
-void drawArrow(){
-	glCallList(ID_ARROW);
+void drawArrow(int horizontalMargin, int verticalMargin, int choice){
+	glPushMatrix();
+		glTranslatef(horizontalMargin, verticalMargin+((choice-1)*VERTICAL_MARGIN), 0);
+		glCallList(ID_ARROW);
+	glPopMatrix();
+}
+
+/* Control the input in the menu */
+int menuInput(int * choice, int maxChoice){
+	SDL_Event e;
+	while(SDL_PollEvent(&e)){
+		switch(e.type){
+			case SDL_KEYUP:
+				switch(e.key.keysym.sym){
+					case CUSTOM_SDLK_ENTER:
+						return *choice;
+					case SDLK_UP:
+						(*choice)--;
+						if (*choice < 1) (*choice) = 1;
+						break;
+					case SDLK_DOWN:
+						(*choice)++;
+						if ((*choice) > maxChoice) (*choice) = maxChoice;
+						break;
+					default:
+						break;
+				}
+			default:
+				break;
+		}
+	}
+	return 0;
 }

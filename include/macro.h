@@ -11,6 +11,9 @@
 #include <math.h>
 #include <time.h>
 
+/* CUSTOM */
+#define CUSTOM_SDLK_ENTER 13
+
 /* 	STATS PARAMETERS */
 #define UNIT_SIZE 40
 #define ELEM_SIZE 70
@@ -62,9 +65,10 @@
 /* UI PARAMETERS */
 #define UI_SIZE 70
 #define UI_MARGIN 20
+#define VERTICAL_MARGIN 160
 
 /* TEXTURES */
-#define TEXTURES_SIZE 27
+#define TEXTURES_SIZE 28
 #define TEXTURE_NAME_MAX_SIZE 20
 #define ID_BACKGROUND1 1
 #define ID_BACKGROUND2 2
@@ -84,8 +88,9 @@
 #define ID_UI_HEART 22
 #define ID_UI_BULLET 23
 #define ID_TITLE_SCREEN 24
-#define ID_GAME_OVER_SCREEN 25
-#define ID_VICTORY_SCREEN 26
-#define ID_ARROW 27
+#define ID_LEVEL_SELECT_SCREEN 25
+#define ID_GAME_OVER_SCREEN 26
+#define ID_VICTORY_SCREEN 27
+#define ID_ARROW 28
 
 #endif
