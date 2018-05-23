@@ -64,23 +64,25 @@ Level * loadLevel(const char * levelName){
    			fscanf(fp, "%d", &b);
    			//Obstacle
    			if (r == 255 && g == 255 && b == 255){
-   				addObstacle(&(level->obstacles), (float)x*UNIT_SIZE, (float)y*UNIT_SIZE);
+   				addObstacle(&(level->obstacles), (float)x*UNIT_SIZE+UNIT_SIZE/2, (float)y*UNIT_SIZE+UNIT_SIZE/2);
    			}
    			//Enemy
    			else if (r == 255 && g == 0 && b == 0){
-   				addUnit(&(level->enemies), ENEMY, ENEMY_FIRE, (float)x*UNIT_SIZE, (float)y*UNIT_SIZE);
+   				addUnit(&(level->enemies), ENEMY, ENEMY_FIRE, (float)x*UNIT_SIZE+UNIT_SIZE/2, (float)y*UNIT_SIZE+UNIT_SIZE/2);
    			}
    			//Player
    			else if (r == 0 && g == 0 && b == 255){
-   				addUnit(&(level->player), PLAYER, HERO_FIRE, (float)3*UNIT_SIZE, (float)y*UNIT_SIZE);
+   				addUnit(&(level->player), PLAYER, HERO_FIRE, (float)3*UNIT_SIZE+UNIT_SIZE/2, (float)y*UNIT_SIZE+UNIT_SIZE/2);
    			}
    			//Boss
    			else if (r == 125 && g == 125 && b == 125){
-   				addUnit(&(level->enemies), BOSS, BOSS_FIRE, (float)x*UNIT_SIZE, (float)y*UNIT_SIZE);
+   				addUnit(&(level->enemies), BOSS, BOSS_FIRE, (float)level->width*(UNIT_SIZE-2), (float)y*UNIT_SIZE+UNIT_SIZE/2);
    			}
+   			//Bonus
    			else if (r == 0 && g == 255 && b == 0){
-   				addBonus(&(level->bonuses), (float)x*UNIT_SIZE, (float)y*UNIT_SIZE);
+   				addBonus(&(level->bonuses), (float)x*UNIT_SIZE+UNIT_SIZE/2, (float)y*UNIT_SIZE+UNIT_SIZE/2);
    			}
+   			//Terminal
    			else if (r == 255 && g == 0 && b == 255){
    				level->terminal = initTerminal(level->width, level->height, (float)x*UNIT_SIZE, (float)y*UNIT_SIZE);
    			}

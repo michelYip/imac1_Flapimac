@@ -7,7 +7,6 @@ void renderLevel(Level level, GLuint textureID[TEXTURES_SIZE]){
 	if (level.obstacles != NULL){
 		renderObstacles(level,textureID);
 	}
-	drawUI(level);
 	if (level.player != NULL){
 		renderPlayer(level,textureID);
 	}
@@ -21,6 +20,7 @@ void renderLevel(Level level, GLuint textureID[TEXTURES_SIZE]){
 		renderBonuses(level,textureID);
 	}
 	renderTerminal(level,textureID);
+	drawUI(level);
 }
 
 

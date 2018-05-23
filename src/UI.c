@@ -6,14 +6,29 @@
 void drawUI(Level level){
 	int i;
 	glPushMatrix();
-		glTranslatef(level.player->x, UI_SIZE + UI_MARGIN, 0);
+		glTranslatef(level.player->x - UNIT_SIZE*3,0,0);
+		glColor3ub(0,0,0);
+		glBegin(GL_QUADS);
+			glVertex2f(0,-110);
+			glVertex2f(WINDOW_WIDTH,-110);
+			glVertex2f(WINDOW_WIDTH,0);
+			glVertex2f(0,0);
+			glVertex2f(0,WINDOW_HEIGHT);
+			glVertex2f(WINDOW_WIDTH,WINDOW_HEIGHT);
+			glVertex2f(WINDOW_WIDTH,WINDOW_HEIGHT+150);
+			glVertex2f(0,WINDOW_HEIGHT+150);
+		glEnd();
+		glColor3ub(255,255,255);
+	glPopMatrix();
+	glPushMatrix();
+		glTranslatef(level.player->x, -UI_SIZE*3/4, 0);
 		for (i = 0; i < level.player->hitpoint; i++){
 			glCallList(ID_UI_HEART);
 			glTranslatef(UI_SIZE + UI_MARGIN, 0, 0);
 		}
 	glPopMatrix();
 	glPushMatrix();
-		glTranslatef(level.player->x, WINDOW_HEIGHT - UI_SIZE - UI_MARGIN, 0);
+		glTranslatef(level.player->x, WINDOW_HEIGHT + UI_SIZE, 0);
 		for (i = 0; i < level.player->fire; i++){
 			glCallList(ID_UI_BULLET);
 			glTranslatef(UI_SIZE + UI_MARGIN, 0, 0);

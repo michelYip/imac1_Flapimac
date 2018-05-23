@@ -6,13 +6,13 @@
 static const unsigned int BIT_PER_PIXEL = 32;
 
 /* Nombre minimal de millisecond separant le rendu de deux images */
-static const Uint32 FRAMERATE_MILLISECONDS = 1000/60;
+static const Uint32 FRAMERATE_MILLISECONDS = 1000/80;
 
 void resize(){
 	glViewport(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	gluOrtho2D(0, 1600, 760, 0);
+	gluOrtho2D(0, 1600, 950, -110);
 }
 
 void resize_window(){
@@ -69,7 +69,7 @@ int main (int argc, char ** argv){
 			victory = 0;
 			defeat = 0;
 			drawTitleScreen();
-			drawArrow(1090, 325, choice);
+			drawArrow(1090, 340, choice);
 			int input = menuInput(&choice, 2);
 			if(input == 1){
 				inMenu = 0;
@@ -80,7 +80,7 @@ int main (int argc, char ** argv){
 		}
 		else if (levelSelect){
 			drawLevelSelectScreen();
-			drawArrow(1035, 140, choice);
+			drawArrow(1035, 75, choice);
 			int input = menuInput(&choice, 4);
 			if(input == 1){
 				levelSelect = 0;
@@ -102,7 +102,7 @@ int main (int argc, char ** argv){
 		}
 		else if (defeat && !victory){
 			drawGameOverScreen();
-			drawArrow(1025, 220, choice);
+			drawArrow(1025, 200, choice);
 			int input = menuInput(&choice, 3);
 			if(input == 1){
 				victory = 0;
@@ -122,7 +122,7 @@ int main (int argc, char ** argv){
 		}
 		else if (!defeat && victory){
 			drawVictoryScreen();
-			drawArrow(1025, 220, choice);
+			drawArrow(1025, 200, choice);
 			int input = menuInput(&choice, 3);
 			if(input == 1){
 				victory = 0;

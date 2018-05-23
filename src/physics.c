@@ -41,10 +41,6 @@ void checkPlayerCollision(UnitList * unit, Level * level){
 		obstacles = level->obstacles;
 		bonuses = level->bonuses;
 		while (enemies != NULL){
-			/*if (player == NULL){
-				player = *unit;
-				continue;
-			}*/
 			if (intersect(player->boundingBoxes, enemies->boundingBoxes)){
 				if (!isImmune(player)){
 					if(damageUnit(&player, COLLISION_DAMAGE)){
@@ -59,10 +55,6 @@ void checkPlayerCollision(UnitList * unit, Level * level){
 			enemies = enemies->next;
 		}
 		while (obstacles != NULL){
-			/*if (player == NULL){
-				player = *unit;
-				continue;
-			}*/
 			if (intersect(player->boundingBoxes, obstacles->boundingBoxes)){
 				if (!isImmune(player)){
 					if(damageUnit(&player, COLLISION_DAMAGE)){
@@ -77,10 +69,6 @@ void checkPlayerCollision(UnitList * unit, Level * level){
 			obstacles = obstacles->next;
 		}
 		while (bonuses != NULL){
-			/*if (player == NULL){
-				player = *unit;
-				continue;
-			}*/
 			if (intersect(player->boundingBoxes, bonuses->boundingBoxes)){
 				applyBonus(bonuses, player);
 				removeBonus(&(level->bonuses), bonuses->id);
@@ -112,14 +100,9 @@ void checkProjectilesCollision(ProjectileList * projectiles, Level * level){
 		enemies = level->enemies;
 		obstacles = level->obstacles;
 		while (player != NULL){
-			/*if (tmp == NULL){
-				tmp = *projectiles;
-				continue;
-			}*/
 			if (tmp->master != PLAYER && intersect(tmp->boundingBoxes, player->boundingBoxes)){
 				if (!isImmune(player)){
 					if(damageUnit(&player, tmp->damage)){
-						printf("player is destroyed !\n");
 						removeUnit(&(level->player), player->id);
 					}
 				}
@@ -132,13 +115,8 @@ void checkProjectilesCollision(ProjectileList * projectiles, Level * level){
 			}
 		}
 		while (enemies != NULL){
-			/*if (tmp == NULL){
-				tmp = *projectiles;
-				continue;
-			}*/
 			if (tmp->master == PLAYER && intersect(tmp->boundingBoxes, enemies->boundingBoxes)){
 				if(damageUnit(&enemies, tmp->damage)){
-					printf("enemy is destroyed !\n");
 					removeUnit(&(level->enemies), enemies->id);
 				}
 				removeProjectile(projectiles, tmp->id);
@@ -150,13 +128,8 @@ void checkProjectilesCollision(ProjectileList * projectiles, Level * level){
 			}
 		}
 		while (obstacles != NULL){
-			/*if (tmp == NULL){
-				tmp = *projectiles;
-				continue;
-			}*/
 			if (intersect(tmp->boundingBoxes, obstacles->boundingBoxes)){
 				if (damageObstacle(&obstacles, tmp->damage)){
-					printf("obstacle is destroyed !\n");
 					removeObstacle(&(level->obstacles), obstacles->id);
 				}
 				removeProjectile(projectiles, tmp->id);
