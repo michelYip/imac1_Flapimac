@@ -125,6 +125,7 @@ void isHurt(Unit * player){
 	glColor3ub(255,0,0);
 	glPushMatrix();
 		glTranslatef(player->x, player->y, 0);
+		glRotatef(player->y_velocity*2, 0, 0, 1);
 		glCallList(ID_PLAYER_HURT);
 	glPopMatrix();
 	glColor3ub(255,255,255);

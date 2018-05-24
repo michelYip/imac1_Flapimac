@@ -38,6 +38,8 @@ int main (int argc, char ** argv){
 
 	Mix_Music * BGM;
 
+	TTF_Init();
+
 	SDL_Surface * textures[TEXTURES_SIZE];
     GLuint textureID[TEXTURES_SIZE];
 
@@ -74,7 +76,6 @@ int main (int argc, char ** argv){
 		glClear(GL_COLOR_BUFFER_BIT);
 
 		/***************** InMenu *****************/
-		//if (inMenu)
 		if (pleaseValidate){
 			drawGameOverSpecialScreen();
 			if (SDL_GetTicks() >= special_game_over_time + GAME_OVER_SPECIAL_DURATION){

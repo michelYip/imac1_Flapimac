@@ -8,6 +8,9 @@
 /* Draw the UI */
 void drawUI(Level level);
 
+/* Draw the score */
+void drawScore(Level * level, char * scoreString,TTF_Font * font, SDL_Color fontColor, SDL_Surface * screen);
+
 /* Drawn the title Screen */
 void drawTitleScreen();
 

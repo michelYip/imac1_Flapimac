@@ -1,6 +1,6 @@
 CC = gcc
 CFLAGS = -Wall -O2 -g
-LDFLAGS = -lSDL -lGLU -lGL -lm -lSDL_image -lSDL_mixer
+LDFLAGS = -lSDL -lGLU -lGL -lm -lSDL_image -lSDL_mixer -lSDL_ttf
 
 APP_BIN = flapimac
 

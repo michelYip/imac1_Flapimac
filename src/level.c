@@ -14,6 +14,7 @@ Level * loadLevel(const char * levelName){
 		fprintf(stderr, "error while allocating memory for loadLevel\n");
 		exit(EXIT_FAILURE);
 	}
+	level->score = 0;
 	level->player = NULL;
 	level->enemies=NULL;
 	level->obstacles=NULL;
@@ -107,6 +108,16 @@ void printLevel(Level level){
 	}
 	printf("OBSTACLES : \n");
 	printObstacles(level.obstacles);
+}
+
+/* Add score to the current score */
+void addScore(Level * level, int score){
+	level->score += score;
+}
+
+/* Substract score to the current score */
+void subScore(Level * level, int score){
+	level->score -= score;
 }
 
 /* Automatic horizontal scroll */
