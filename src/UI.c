@@ -64,6 +64,19 @@ void drawGameOverSpecialScreen(){
 	glCallList(ID_YOU_SHALL_NOT_PASS);
 }
 
+/* Draw the pause screen */
+void drawPauseScreen(Level * level){
+	glPushMatrix();
+		glTranslatef(level->player->x-UNIT_SIZE*3,0,0);
+		glCallList(ID_PAUSE);
+	glPopMatrix();
+}
+
+/* Draw the credit screen */
+void drawCreditScreen(){
+	glCallList(ID_CREDITS);
+}
+
 /* Draw an arrow */
 void drawArrow(int horizontalMargin, int verticalMargin, int choice){
 	glPushMatrix();
@@ -98,3 +111,4 @@ int menuInput(int * choice, int maxChoice){
 	}
 	return 0;
 }
+

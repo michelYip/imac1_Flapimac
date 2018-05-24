@@ -46,38 +46,64 @@ void userInput(Level * level){
 	if (level->player == NULL){
 		return;
 	}
-	while(SDL_PollEvent(&e)) {
-		switch(e.type){
-			case SDL_KEYDOWN:
-				switch(e.key.keysym.sym){
-					case SDLK_UP:
-		               	level->player->y_velocity = -HERO_VELOCITY;
-		          		break;
-		            case SDLK_DOWN:
-		                level->player->y_velocity = HERO_VELOCITY;
-		                break;
-		            case SDLK_SPACE:
-		            	shoot(&(level->projectiles), level->player);
-		            	break;
-		            default:
-		                break;
-				}
+	if (level->halt){
+		while(SDL_PollEvent(&e)) {
+			switch(e.type){
+				case SDL_KEYUP:
+					switch(e.key.keysym.sym){
+						case CUSTOM_SDLK_ENTER:
+							Mix_VolumeMusic(MIX_MAX_VOLUME / 3);
+			            	level->halt = 0;
+			            	level->player->y_velocity = 0;
+			            	break;
+			            default:
+			                break;
+					}
 				break;
-			case SDL_KEYUP:
-				switch(e.key.keysym.sym){
-					case SDLK_UP:
-						level->player->y_velocity = 0;
-		    	      	break;
-		            case SDLK_DOWN:
-						level->player->y_velocity = 0;
-		               	break;
-		            default:
-		                break;
-				}
-				break;
-			default:
-				break;
+				default:
+					break;
+			}
 		}
+	} else {
+		while(SDL_PollEvent(&e)) {
+			switch(e.type){
+				case SDL_KEYDOWN:
+					switch(e.key.keysym.sym){
+						case SDLK_UP:
+			               	level->player->y_velocity = -HERO_VELOCITY;
+			          		break;
+			            case SDLK_DOWN:
+			                level->player->y_velocity = HERO_VELOCITY;
+			                break;
+			            case SDLK_SPACE:
+			            	shoot(&(level->projectiles), level->player);
+			            	break;
+			            default:
+			                break;
+					}
+					break;
+				case SDL_KEYUP:
+					switch(e.key.keysym.sym){
+						case SDLK_UP:
+							level->player->y_velocity = 0;
+			    	      	break;
+			            case SDLK_DOWN:
+							level->player->y_velocity = 0;
+			               	break;
+			            case CUSTOM_SDLK_ENTER:
+			            	if (level->halt == 0){
+			            		Mix_VolumeMusic(MIX_MAX_VOLUME / 6);
+			            		level->halt = 1;
+			            	}
+			            	break;
+			            default:
+			                break;
+					}
+				break;
+				default:
+					break;
+			}
+		}
+		moveUnit(level->player);
 	}
-	moveUnit(level->player);
 }

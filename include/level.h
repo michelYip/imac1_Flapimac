@@ -11,6 +11,7 @@
 typedef struct level{
 	int height;
 	int width;
+	int halt;
 	Unit * player;
 	Unit * enemies;
 	Obstacle * obstacles;

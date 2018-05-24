@@ -14,6 +14,7 @@ Level * loadLevel(const char * levelName){
 		fprintf(stderr, "error while allocating memory for loadLevel\n");
 		exit(EXIT_FAILURE);
 	}
+	level->halt = 0;
 	level->player = NULL;
 	level->enemies=NULL;
 	level->obstacles=NULL;

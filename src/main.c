@@ -34,6 +34,7 @@ int main (int argc, char ** argv){
 	int choice = 1;
 	int levelNumber = 0;
 	int pleaseValidate = 0;
+	int credit = 0;
 	char * levelName;
 
 	Mix_Music * BGM;
@@ -74,7 +75,18 @@ int main (int argc, char ** argv){
 		glClear(GL_COLOR_BUFFER_BIT);
 
 		/***************** InMenu *****************/
-		if (pleaseValidate){
+		if (credit){
+			drawCreditScreen();
+			if (SDL_GetTicks() >= special_game_over_time + GAME_OVER_SPECIAL_DURATION){
+				credit = 0;
+				inMenu = 1;
+				levelSelect = 0;
+				defeat = 0;
+				victory = 0;
+				choice = 1;
+			}
+		}
+		else if (pleaseValidate){
 			drawGameOverSpecialScreen();
 			if (SDL_GetTicks() >= special_game_over_time + GAME_OVER_SPECIAL_DURATION){
 				pleaseValidate = 0;
@@ -141,6 +153,11 @@ int main (int argc, char ** argv){
 			}
 		}
 		else if (!defeat && victory){
+			if (levelNumber == 3){
+				credit = 1;
+				special_game_over_time = SDL_GetTicks();
+				continue;
+			}
 			drawVictoryScreen();
 			drawArrow(1025, 200, choice);
 			int input = menuInput(&choice, 3);
@@ -164,10 +181,13 @@ int main (int argc, char ** argv){
 		}
 
 		/***************** InGame *****************/
+		else if (level != NULL && level->halt){
+			drawPauseScreen(level);
+			userInput(level);
+		}
 		else{
 			/* Draw Function */	
 			scroll(level, textureID);
-			//renderBroken(*level, textureID);
 			renderLevel(*level, textureID);
 
 			updateElementsPosition(level);

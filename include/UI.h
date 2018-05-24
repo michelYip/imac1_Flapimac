@@ -26,6 +26,12 @@ void drawGameOverScreen();
 /* Draw the game over special screen */
 void drawGameOverSpecialScreen();
 
+/* Draw the pause screen */
+void drawPauseScreen(Level * level);
+
+/* Draw the credit screen */
+void drawCreditScreen();
+
 /* Draw an arrow */
 void drawArrow(int horizontalMargin, int verticalMargin, int choice);
 
