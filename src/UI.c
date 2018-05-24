@@ -30,7 +30,10 @@ void drawUI(Level level){
 	glPushMatrix();
 		glTranslatef(level.player->x, WINDOW_HEIGHT + UI_SIZE, 0);
 		for (i = 0; i < level.player->fire; i++){
-			glCallList(ID_UI_BULLET);
+			if (i%2)
+				glCallList(ID_UI_BULLET_BIRI);
+			else
+				glCallList(ID_UI_BULLET_LABY);
 			glTranslatef(UI_SIZE + UI_MARGIN, 0, 0);
 		}
 	glPopMatrix();	
@@ -54,6 +57,11 @@ void drawVictoryScreen(){
 /* Draw the game over screen */
 void drawGameOverScreen(){
 	glCallList(ID_GAME_OVER_SCREEN);
+}
+
+/* Draw the game over special screen */
+void drawGameOverSpecialScreen(){
+	glCallList(ID_YOU_SHALL_NOT_PASS);
 }
 
 /* Draw an arrow */

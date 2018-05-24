@@ -3,6 +3,7 @@
 #define __MACRO__
 
 #include <SDL/SDL.h>
+#include <SDL/SDL_mixer.h>
 #include <SDL/SDL_image.h>
 #include <GL/gl.h>
 #include <GL/glu.h>
@@ -66,9 +67,10 @@
 #define UI_SIZE 70
 #define UI_MARGIN 20
 #define VERTICAL_MARGIN 225
+#define GAME_OVER_SPECIAL_DURATION 10000
 
 /* TEXTURES */
-#define TEXTURES_SIZE 28
+#define TEXTURES_SIZE 24
 #define TEXTURE_NAME_MAX_SIZE 20
 #define ID_BACKGROUND1 1
 #define ID_BACKGROUND2 2
@@ -80,17 +82,19 @@
 #define ID_BONUS_FIRE 8
 #define ID_PROJECTILE_PLAYER 9
 #define ID_PROJECTILE_ENEMY 10
-#define NB_PROJECTILES_ENEMY 5
-#define ID_TERMINAL 15
-#define ID_BARRIER 16
-#define ID_WALL 17
-#define NB_ID_WALLS 5
-#define ID_UI_HEART 22
-#define ID_UI_BULLET 23
-#define ID_TITLE_SCREEN 24
-#define ID_LEVEL_SELECT_SCREEN 25
-#define ID_GAME_OVER_SCREEN 26
-#define ID_VICTORY_SCREEN 27
-#define ID_ARROW 28
+#define NB_PROJECTILES_ENEMY 2
+#define ID_TERMINAL 12
+#define ID_BARRIER 13
+#define ID_WALL 14
+#define NB_ID_WALLS 2
+#define ID_UI_HEART 16
+#define ID_UI_BULLET_BIRI 17
+#define ID_UI_BULLET_LABY 18
+#define ID_TITLE_SCREEN 19
+#define ID_LEVEL_SELECT_SCREEN 20
+#define ID_GAME_OVER_SCREEN 21
+#define ID_VICTORY_SCREEN 22
+#define ID_ARROW 23
+#define ID_YOU_SHALL_NOT_PASS 24
 
 #endif

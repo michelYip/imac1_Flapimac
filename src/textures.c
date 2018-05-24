@@ -72,6 +72,7 @@ void drawUnit(Unit unit){
 	glPushMatrix();
 		glTranslatef(unit.x, unit.y, 0);
 		if (unit.type == PLAYER){
+			glRotatef(unit.y_velocity*2, 0, 0, 1);
 			glCallList(ID_PLAYER1);
 		} else if (unit.type == ENEMY){
 			glCallList(ID_ENEMY);
@@ -98,6 +99,7 @@ void drawBonus(Bonus bonus){
 void drawProjectile(Projectile projectile){
 	glPushMatrix();
 		glTranslatef(projectile.x, projectile.y, 0);
+		glRotatef(projectile.orientation*180/M_PI, 0,0,1);
 		glCallList(projectile.idTexture);
     glPopMatrix();
 }

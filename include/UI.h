@@ -20,6 +20,9 @@ void drawVictoryScreen();
 /* Draw the game over screen */
 void drawGameOverScreen();
 
+/* Draw the game over special screen */
+void drawGameOverSpecialScreen();
+
 /* Draw an arrow */
 void drawArrow(int horizontalMargin, int verticalMargin, int choice);
 

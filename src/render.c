@@ -23,6 +23,22 @@ void renderLevel(Level level, GLuint textureID[TEXTURES_SIZE]){
 	drawUI(level);
 }
 
+void renderBroken(Level level, GLuint textureID[TEXTURES_SIZE]){
+	renderLevel(level, textureID);
+	renderLevel(level, textureID);
+	renderLevel(level, textureID);
+	renderLevel(level, textureID);
+	renderLevel(level, textureID);
+	renderLevel(level, textureID);
+	renderLevel(level, textureID);
+	renderLevel(level, textureID);
+	renderLevel(level, textureID);
+	renderLevel(level, textureID);
+	renderLevel(level, textureID);
+	renderLevel(level, textureID);
+	renderLevel(level, textureID);
+}
+
 
 /* Render the player in the level */
 void renderPlayer(Level level, GLuint textureID[TEXTURES_SIZE]){

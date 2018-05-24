@@ -75,12 +75,7 @@ void checkPlayerCollision(UnitList * unit, Level * level){
 			}
 			bonuses = bonuses->next;
 		}
-		if (intersect(player->boundingBoxes, level->terminal->upperBarrier->boundingBox)){
-			removeUnit(unit, player->id);
-		}
-		if (intersect(player->boundingBoxes, level->terminal->lowerBarrier->boundingBox)){
-			removeUnit(unit, player->id);
-		}
+		
 		if (player == NULL){
 			player = *unit;
 			continue;
@@ -140,7 +135,7 @@ void checkProjectilesCollision(ProjectileList * projectiles, Level * level){
 				obstacles = obstacles->next;
 			}
 		}
-		if (intersect(tmp->boundingBoxes, level->terminal->boundingBox)){
+		if (tmp->master == PLAYER && intersect(tmp->boundingBoxes, level->terminal->boundingBox)){
 			level->terminal->state = 1;
 			removeProjectile(projectiles, tmp->id);
 		}

@@ -18,22 +18,23 @@ void moveUnit(Unit * unit){
 void shoot(ProjectileList * projectiles, Unit * unit){
 	int reload = 0;
 	int i;
+	int angle = (unit->type == PLAYER) ? unit->y_velocity*3 : 0;
 	if (unit->type == PLAYER) reload = HERO_RELOAD;
 	else if (unit->type == ENEMY) reload = ENEMY_RELOAD;
 	else if (unit->type == BOSS) reload = BOSS_RELOAD;
 	if (SDL_GetTicks() >= unit->shotTime + reload){
 		if (unit->fire % 2 == 0){
 			for (i = 1; i <= unit->fire/2; i++){
-				addProjectile(projectiles, *unit, -i*5);
-				addProjectile(projectiles, *unit, i*5);
+				addProjectile(projectiles, *unit, -i*4+angle);
+				addProjectile(projectiles, *unit, i*4+angle);
 			}
 		} 
 		else {
 			for (i = 1; i <= unit->fire/2; i++){
-				addProjectile(projectiles, *unit, -i*10);
-				addProjectile(projectiles, *unit, i*10);
+				addProjectile(projectiles, *unit, -i*8+angle);
+				addProjectile(projectiles, *unit, i*8+angle);
 			}
-			addProjectile(projectiles, *unit, 0);
+			addProjectile(projectiles, *unit, angle);
 		}
 		unit->shotTime = SDL_GetTicks();
 	} 
