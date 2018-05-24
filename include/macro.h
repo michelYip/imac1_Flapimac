@@ -75,7 +75,7 @@
 #define ID_BACKGROUND1 1
 #define ID_BACKGROUND2 2
 #define ID_PLAYER1 3
-#define ID_PLAYER2 4
+#define ID_PLAYER_HURT 4
 #define ID_ENEMY 5
 #define ID_BOSS 6
 #define ID_BONUS_HEART 7

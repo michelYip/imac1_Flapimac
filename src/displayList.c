@@ -62,9 +62,9 @@ void createDrawUnitIDList(GLuint textureID[TEXTURES_SIZE]){
         glDisable(GL_TEXTURE_2D);
         glBindTexture(GL_TEXTURE_2D, 0);
     glEndList();
-    glNewList(ID_PLAYER2, GL_COMPILE);
+    glNewList(ID_PLAYER_HURT, GL_COMPILE);
         glEnable(GL_TEXTURE_2D);
-        glBindTexture(GL_TEXTURE_2D, textureID[ID_PLAYER2]);
+        glBindTexture(GL_TEXTURE_2D, textureID[ID_PLAYER_HURT]);
         glPushMatrix();
             glBegin(GL_QUADS);
                 glTexCoord2f(0,0);

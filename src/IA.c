@@ -5,12 +5,34 @@
 /* Manage enemies behavior */
 void updateEnemies(Level * level){
 	Unit * enemy = level->enemies;
+	Obstacle * obstacle;
 	while (enemy != NULL){
+		obstacle = level->obstacles;
 		shoot(&(level->projectiles), enemy);
-		if (enemy->behavior == UPANDDOWN) {
-			updateUpAndDown(enemy);
-		} else if (enemy->behavior == FOLLOW) {
-			updateFollow(enemy, level->player);
+		while (obstacle != NULL){
+			if (intersect(enemy->boundingBoxes, obstacle->boundingBoxes)){
+				if (enemy->behavior == UPANDDOWN){
+					enemy->y_velocity = -enemy->y_velocity;
+				}
+				else if (enemy->behavior == FOLLOW){
+					enemy->y_velocity = -1;
+				}
+				break;
+			} else {
+				if (enemy->behavior == UPANDDOWN) {
+					updateUpAndDown(enemy);
+				} else if (enemy->behavior == FOLLOW) {
+					updateFollow(enemy, level->player);
+				}
+			}
+			obstacle = obstacle->next;
+		}
+		if (level->obstacles == NULL){
+			if (enemy->behavior == UPANDDOWN) {
+				updateUpAndDown(enemy);
+			} else if (enemy->behavior == FOLLOW) {
+				updateFollow(enemy, level->player);
+			}
 		}
 		moveUnit(enemy);
 		enemy = enemy->next;

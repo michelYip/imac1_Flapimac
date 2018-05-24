@@ -125,12 +125,7 @@ void isHurt(Unit * player){
 	glColor3ub(255,0,0);
 	glPushMatrix();
 		glTranslatef(player->x, player->y, 0);
-		glBegin(GL_QUADS);
-			glVertex2f(-ELEM_SIZE/2, ELEM_SIZE/2);
-			glVertex2f(ELEM_SIZE/2, ELEM_SIZE/2);
-			glVertex2f(ELEM_SIZE/2, -ELEM_SIZE/2);
-			glVertex2f(-ELEM_SIZE/2, -ELEM_SIZE/2);
-		glEnd();
+		glCallList(ID_PLAYER_HURT);
 	glPopMatrix();
 	glColor3ub(255,255,255);
 }

@@ -51,7 +51,7 @@ int main (int argc, char ** argv){
 
 	BGM = Mix_LoadMUS("sound/space-shooter.mp3");
 	Mix_PlayMusic(BGM, -1);
-	Mix_VolumeMusic(MIX_MAX_VOLUME / 2);
+	Mix_VolumeMusic(MIX_MAX_VOLUME / 3);
 
 	/* Initialize Window */
 	if (SDL_Init(SDL_INIT_VIDEO) == -1){
