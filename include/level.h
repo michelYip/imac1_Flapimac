@@ -11,7 +11,6 @@
 typedef struct level{
 	int height;
 	int width;
-	int score;
 	Unit * player;
 	Unit * enemies;
 	Obstacle * obstacles;
@@ -25,12 +24,6 @@ Level * loadLevel(const char * levelName);
 
 /* Print the level parameter */
 void printLevel(Level level);
-
-/* Add score to the current score */
-void addScore(Level * level, int score);
-
-/* Substract score to the current score */
-void subScore(Level * level, int score);
 
 /* Automatic horizontal scroll */
 void scrollLevel(Level * level);

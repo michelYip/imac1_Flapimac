@@ -38,8 +38,6 @@ int main (int argc, char ** argv){
 
 	Mix_Music * BGM;
 
-	TTF_Init();
-
 	SDL_Surface * textures[TEXTURES_SIZE];
     GLuint textureID[TEXTURES_SIZE];
 
