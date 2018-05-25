@@ -81,3 +81,10 @@ void removeUnit(UnitList * list, int id){
 void printUnitPosition(Unit unit){
 	printf("id : %d, x : %f, y : %f\n", unit.id, unit.x, unit.y);
 }
+
+/* Remove all enemies */
+void freeAllEnemies(UnitList * list){
+	while ((*list) != NULL){
+		removeUnit(list, (*list)->id);
+	}
+}

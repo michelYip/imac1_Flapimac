@@ -180,6 +180,16 @@ int checkBossPosition(Level * level){
 	}
 }
 
+/* Check if the boss is alive */
+int bossAlive(Level * level){
+	Unit * boss = level->enemies;
+	while (boss != NULL && boss->type != BOSS) {
+		boss = boss->next;
+	}
+	if (boss == NULL) return 0;
+	return 1;
+}
+
 /* Free from memory the current level */
 void freeLevel(Level * level){
 	while (level->player != NULL){

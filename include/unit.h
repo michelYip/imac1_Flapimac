@@ -28,4 +28,7 @@ void removeUnit(UnitList * list, int id);
 /* Print the position of the unit in parameter */
 void printUnitPosition(Unit unit);
 
+/* Remove all enemies */
+void freeAllEnemies(UnitList * unit);
+
 #endif

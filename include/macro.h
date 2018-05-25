@@ -40,7 +40,7 @@
 #define ENEMY_RELOAD 1000
 
 /* BOSS STATS */
-#define BOSS_HP 150
+#define BOSS_HP 80
 #define BOSS_SIZE 300
 #define BOSS_RELOAD 650
 #define BOSS_FIRE 7
@@ -63,7 +63,7 @@
 #define TERMINAL_SIZE 80
 #define BARRIER_WIDTH 100
 #define BARRIER_HEIGHT 400
-#define SCROLLSPEED 6
+#define SCROLLSPEED 5
 
 /* UI PARAMETERS */
 #define UI_SIZE 70

@@ -2,6 +2,8 @@
 
 #include "../include/action.h"
 
+static int shooting = 0;
+
 /* Move a unit  */
 void moveUnit(Unit * unit){
 	if (unit->y + unit->y_velocity < ELEM_SIZE/2 || unit->y + unit->y_velocity > WINDOW_HEIGHT-ELEM_SIZE/2){
@@ -25,8 +27,8 @@ void shoot(ProjectileList * projectiles, Unit * unit){
 	if (SDL_GetTicks() >= unit->shotTime + reload){
 		if (unit->fire % 2 == 0){
 			for (i = 1; i <= unit->fire/2; i++){
-				addProjectile(projectiles, *unit, -i*4+angle);
-				addProjectile(projectiles, *unit, i*4+angle);
+				addProjectile(projectiles, *unit, -i*3+angle);
+				addProjectile(projectiles, *unit, i*3+angle);
 			}
 		} 
 		else {
@@ -45,6 +47,9 @@ void userInput(Level * level){
 	SDL_Event e;
 	if (level->player == NULL){
 		return;
+	}
+	if (shooting){
+		shoot(&(level->projectiles), level->player);
 	}
 	if (level->halt){
 		while(SDL_PollEvent(&e)) {
@@ -76,7 +81,7 @@ void userInput(Level * level){
 			                level->player->y_velocity = HERO_VELOCITY;
 			                break;
 			            case SDLK_SPACE:
-			            	shoot(&(level->projectiles), level->player);
+			            	shooting = 1;
 			            	break;
 			            default:
 			                break;
@@ -90,6 +95,9 @@ void userInput(Level * level){
 			            case SDLK_DOWN:
 							level->player->y_velocity = 0;
 			               	break;
+			            case SDLK_SPACE:
+			            	shooting = 0;
+			            	break;
 			            case CUSTOM_SDLK_ENTER:
 			            	if (level->halt == 0){
 			            		Mix_VolumeMusic(MIX_MAX_VOLUME / 6);

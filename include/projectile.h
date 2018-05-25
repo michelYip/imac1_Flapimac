@@ -30,4 +30,7 @@ void removeProjectile(ProjectileList * projectiles, int id);
 /* Update the position of the projectile */
 void updateProjectilesPosition(ProjectileList * projectiles);
 
+/* Remove all the projectiles */
+void freeAllProjectiles(ProjectileList * list);
+
 #endif

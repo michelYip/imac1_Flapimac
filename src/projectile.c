@@ -81,3 +81,11 @@ void updateProjectilesPosition(ProjectileList * projectiles){
 		tmp = tmp->next;
 	}
 }
+
+
+/* Remove all the projectiles */
+void freeAllProjectiles(ProjectileList * list){
+	while ((*list) != NULL){
+		removeProjectile(list, (*list)->id);
+	}
+}

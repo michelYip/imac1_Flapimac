@@ -116,7 +116,7 @@ int main (int argc, char ** argv){
 			if(input == 1){
 				levelSelect = 0;
 				levelNumber = 1;
-				level = loadLevel("level/testLevel.ppm");
+				level = loadLevel("level/1.ppm");
 			} else if(input == 2){
 				levelSelect = 0;
 				levelNumber = 2;
@@ -214,6 +214,13 @@ int main (int argc, char ** argv){
 
 			if (level->enemies == NULL && getState(level->terminal)){
 				openBarrier(level->terminal);
+			}
+
+			if (level->enemies == NULL){
+				freeAllProjectiles(&(level->projectiles));
+			}
+			if (!bossAlive(level)){
+				freeAllEnemies(&(level->enemies));
 			}
 
 			if (level->player->x >= UNIT_SIZE * level->width){

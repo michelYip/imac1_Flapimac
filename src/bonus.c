@@ -68,7 +68,6 @@ void applyBonus(Bonus * bonus, Unit * player){
 			break;
 		case (FIRE_UPGRADE):
 			if (player->fire < HERO_MAX_FIRE) player->fire++;
-			printf("%d\n", player->fire);
 			break;
 		default:
 			break;
