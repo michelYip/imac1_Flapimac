@@ -19,26 +19,30 @@ void addUnit(UnitList * list, unitType type, int bulletNumber, float x, float y)
 	newUnit -> y = y;
 	newUnit -> x_velocity = (type == PLAYER)? SCROLLSPEED : 0;
 	newUnit -> y_velocity = 0;
-	newUnit -> boundingBoxes = (type != BOSS) ? initBoundingBox(x - ELEM_SIZE/2,
-										 	y - ELEM_SIZE/2, 
-										 	x + ELEM_SIZE/2, 
-										 	y + ELEM_SIZE/2) : 
-												initBoundingBox(x - BOSS_SIZE/2,
-										 	y - BOSS_SIZE/2, 
-										 	x + BOSS_SIZE/2, 
-										 	y + BOSS_SIZE/2);
 	if (type == PLAYER){
 		newUnit -> hitpoint = HERO_HP;
 		newUnit -> max_health = HERO_MAX_HEALTH;
 		newUnit -> behavior = PLAYABLE;
+		newUnit -> boundingBoxes = initBoundingBox(x - HERO_WIDTH/2,
+										 	y - ELEM_SIZE/2, 
+										 	x + HERO_WIDTH/2, 
+										 	y + ELEM_SIZE/2) ;
 	} else if (type == ENEMY) {
 		newUnit -> hitpoint = ENEMY_HP;
 		newUnit -> max_health = ENEMY_HP;
 		newUnit -> behavior = (rand()%2)+1;
+		newUnit -> boundingBoxes = initBoundingBox(x - ELEM_SIZE/2,
+										 	y - ELEM_SIZE/2, 
+										 	x + ELEM_SIZE/2, 
+										 	y + ELEM_SIZE/2);
 	} else if (type == BOSS) {
 		newUnit -> hitpoint = BOSS_HP;
 		newUnit -> max_health = BOSS_HP;
 		newUnit -> behavior = UPANDDOWN;
+		newUnit -> boundingBoxes = initBoundingBox(x - BOSS_SIZE/2,
+										 	y - BOSS_SIZE/2, 
+										 	x + BOSS_SIZE/2, 
+										 	y + BOSS_SIZE/2);
 	}
 	if (list != NULL){
 		newUnit -> next = (*list);	

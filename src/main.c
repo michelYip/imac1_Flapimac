@@ -11,7 +11,7 @@ static const Uint32 FRAMERATE_MILLISECONDS = 1000/80;
 /**/
 static Uint32 special_game_over_time = 0;
 
-void resize(){
+void configWindow(){
 	if (SDL_SetVideoMode(WINDOW_WIDTH, WINDOW_HEIGHT, BIT_PER_PIXEL, SDL_OPENGL | SDL_RESIZABLE | SDL_GL_DOUBLEBUFFER) == NULL){
 		fprintf(stderr, "Impossible d'ouvrir la fenetre. Fin du programme.\n");
 		exit(EXIT_FAILURE);
@@ -20,9 +20,6 @@ void resize(){
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	gluOrtho2D(0, 1600, 950, -110);
-	glClear(GL_COLOR_BUFFER_BIT);
-	glMatrixMode(GL_MODELVIEW);
-	SDL_GL_SwapBuffers();
 }
 
 int main (int argc, char ** argv){
@@ -59,20 +56,22 @@ int main (int argc, char ** argv){
 		fprintf(stderr, "Impossible d'initialiser la SDL. Fin du programme.\n");
 		return EXIT_FAILURE;
 	}
+	configWindow();
 	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 0);
-	resize();
 	SDL_WM_SetCaption("Nathanael ROVERE & Michel YIP - Flapimac", NULL);
+    
     loadTextures(textures);
     glGenTextures(TEXTURES_SIZE, textureID);
     configTextures(textures, textureID);
 
-    glColor3ub(255,255,255);
     glPushMatrix();
-	
+	glClearColor(0,0,0,1.0);
+
 	while(loop){
-		Uint32 startTime = SDL_GetTicks();
 
 		glClear(GL_COLOR_BUFFER_BIT);
+
+		Uint32 startTime = SDL_GetTicks();
 
 		/***************** InMenu *****************/
 		if (credit){
